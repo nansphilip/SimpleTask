@@ -1,15 +1,23 @@
 import Link from 'next/link'
 import { ReactNode } from 'react';
 
-export default function Button({ href, variante, className, children, }:
+/**
+ * 
+ * @param mode can be a link: `"/pathPage"`, a button type: `"button"`, `"submit"`, `"reset"`, or a styled div: `"style"`
+ * @param variante can be `"white"`, `"gray"`, `"border"`, or `"no-style"`
+ * @param className can override the default style
+ * @returns `<a>`, `<button>`, or `<div>`
+ */
+export default function Button({ mode, onClick, variante, className, children, }:
     {
-        href: string,
+        mode: string | "style" | "button" | "submit" | "reset",
+        onClick?: () => any,
         variante?: string,
         className?: string,
         children: ReactNode,
     }) {
 
-    const commonStyle = "px-4 py-2 rounded-md text-sm text-center transition-all";
+    const commonStyle = "px-4 py-1 rounded-md text-sm text-center transition-all";
     let varianteStyle = "";
 
     switch (variante) {
@@ -30,15 +38,27 @@ export default function Button({ href, variante, className, children, }:
             break;
     }
 
-    if (href === "no-link") {
+    if (mode === "style") {
         return (
-            <div className={`${varianteStyle} ${className}`}>{children}</div>
+            <div className={`${varianteStyle} ${className}`}>
+                {children}
+            </div>
         );
     }
 
-    return (
-        <Link href={href} className={`${varianteStyle} ${className}`}>
-            {children}
-        </Link>
-    );
+    if (mode === "button" || mode === "submit" || mode === "reset") {
+        return (
+            <button type={mode} onClick={onClick} className={`${varianteStyle} ${className}`}>
+                {children}
+            </button>
+        );
+    }
+
+    if (mode[0] === "/") {
+        return (
+            <Link href={mode} className={`${varianteStyle} ${className}`}>
+                {children}
+            </Link>
+        );
+    }
 }

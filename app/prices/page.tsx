@@ -50,7 +50,7 @@ export default function Prices() {
                                 </li>
                             </ul>
                             <div className="flex-1"></div>
-                            <Button href="no-link">Rester en Gratuit</Button>
+                            <Button mode="style">Rester en Gratuit</Button>
                         </Card>
                     </Link>
 
@@ -98,7 +98,7 @@ export default function Prices() {
                                 </li>
                             </ul>
                             <div className="flex-1"></div>
-                            <Button href="no-link">S&apos;abonner au Premium</Button>
+                            <Button mode="style">S&apos;abonner au Premium</Button>
                         </Card>
                     </Link>
 

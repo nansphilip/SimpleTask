@@ -19,6 +19,14 @@ pnpx create-next-app@latest
 
 ## Todo
 
+Tab
+
+- Comprendre les structures imbriquées
+
+Header
+
+- Faire un hover glissant
+
 Features
 
 - Connect a database
