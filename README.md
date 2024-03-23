@@ -19,5 +19,7 @@ pnpx create-next-app@latest
 
 ## Todo
 
+Features
+
 - Connect a database
 - Create an user session
