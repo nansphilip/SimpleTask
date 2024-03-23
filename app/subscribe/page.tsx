@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 
-export default function Home() {
+export default function Subscribe() {
     return (
         <>
             <Header/>
