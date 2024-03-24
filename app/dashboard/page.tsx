@@ -1,5 +1,5 @@
 import Header from "@/components/header";
-import { TabParent, TabChild } from "@/components/tabbb";
+import { TabParent, TabChild } from "@/components/taaab";
 
 export default function Dashboard() {
     return (
@@ -13,7 +13,7 @@ export default function Dashboard() {
                 </div>
             </main> */}
             <main className="flex-1 flex gap-4 flex-col justify-center items-center">
-                <TabParent selectedTab="tab-1">
+                <TabParent selectedTab="tab-2">
                     <TabChild label="tab-1">Tab 1</TabChild>
                     <TabChild label="tab-2">Tab 2</TabChild>
                     <TabChild label="tab-3">Tab 3</TabChild>
