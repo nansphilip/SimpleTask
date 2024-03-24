@@ -31,7 +31,7 @@ export default function Button({ mode, onClick, variante, className, children, }
             varianteStyle = `${commonStyle} text-black bg-gray-100 hover:bg-gray-200`;
             break;
         case 'border':
-            varianteStyle = `${commonStyle} text-black bg-white hover:bg-gray-100 border border-gray-300`;
+            varianteStyle = `${commonStyle} text-black bg-white hover:bg-gray-100 border border-gray-300 hover:border-gray-400`;
             break;
         case 'no-style':
             varianteStyle = ``;

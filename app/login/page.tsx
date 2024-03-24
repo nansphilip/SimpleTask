@@ -1,6 +1,8 @@
 import Header from "@/components/header";
 import Button from "@/components/button";
 import Input from "@/components/input";
+import Background from "@/components/background";
+
 import { Tab, TabButton, TabButtonList, TabContent, TabContentList } from "@/components/tab";
 
 export default function Login() {
@@ -33,6 +35,7 @@ export default function Login() {
                     </TabContentList>
                 </Tab>
             </main>
+            <Background />
         </>
     );
 }

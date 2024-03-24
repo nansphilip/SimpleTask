@@ -2,6 +2,7 @@ import Header from "@/components/header";
 import Card from "@/components/card";
 import Button from "@/components/button";
 import Link from "next/link";
+import Background from "@/components/background";
 
 export default function Prices() {
     return (
@@ -11,7 +12,7 @@ export default function Prices() {
                 <div className="h-[720px] flex gap-4 flex-row justify-center items-center">
 
                     <Link className="h-full" href="/dashboard">
-                        <Card className="h-full w-[400px] flex gap-4 flex-col hover:bg-gray-50 transition-all">
+                        <Card className="h-full w-[400px] flex gap-4 flex-col hover:bg-gray-50 hover:border-gray-400 transition-all">
                             <h2 className="text-2xl font-bold text-center">Gratuit</h2>
                             <hr />
                             <ul className="flex gap-4 flex-col">
@@ -55,7 +56,7 @@ export default function Prices() {
                     </Link>
 
                     <Link className="h-full" href="/subscribe">
-                        <Card className="h-full w-[400px] flex gap-4 flex-col hover:bg-gray-50 transition-all">
+                        <Card className="h-full w-[400px] flex gap-4 flex-col hover:bg-gray-50 hover:border-gray-400 transition-all">
                             <h2 className="text-2xl font-bold text-center">Abonnement</h2>
                             <hr />
                             <ul className="flex gap-4 flex-col">
@@ -104,6 +105,7 @@ export default function Prices() {
 
                 </div>
             </main>
+            <Background/>
         </>
     );
 }

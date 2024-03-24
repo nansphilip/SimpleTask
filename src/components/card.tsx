@@ -7,7 +7,7 @@ export default function Card({ className, children }:
     }) {
 
     return (
-        <div className={`p-4 shadow-md bg-white border border-gray-300 rounded-md ${className}`}>
+        <div className={`p-4 shadow-md bg-white border border-gray-300 rounded-xl ${className}`}>
             {children}
         </div>
     );
