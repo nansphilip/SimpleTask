@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Button from "@/components/button";
+import { ScanFace } from 'lucide-react';
 
 export default function Header({ className }:
     {
@@ -27,8 +28,13 @@ export default function Header({ className }:
             </nav>
 
             <div className="flex gap-2 flex-row justify-end items-center">
-                <Button variante="border" mode="/auth">Sign Up</Button>
-                <Button mode="/auth">Login</Button>
+                {/* <Button variante="border" mode="/auth">Sign Up</Button>
+                <Button mode="/auth">Login</Button> */}
+                <Button mode="/auth" className="flex gap-2 flex-row justify-center items-center">
+                    <span>Auth</span>
+                    <ScanFace color="white" size={16} />
+                </Button>
+
             </div>
 
         </header>
