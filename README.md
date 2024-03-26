@@ -17,6 +17,14 @@ I've created this project to learns new modern technologies like:
 pnpx create-next-app@latest
 ```
 
+`Prisma ORM` install:
+
+```bash
+pnpx prisma init --datasource-provider mysql
+pnpx prisma migrate dev --name init
+pnpm install @prisma/client
+```
+
 ## Todo
 
 Header
