@@ -2,26 +2,36 @@
 
 import Card from "@/components/card";
 import Button from "@/components/button";
-import React, { useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
-function Tab({ select, children }:
+const TabContext = createContext({
+    currentSelectedTab: '',
+    setCurrentSelectedTab: (label: string) => { },
+});
+
+export function Tab({ selectedTab, children }:
     {
-        select: string,
-        children: React.ReactNode,
+        selectedTab: string,
+        children: React.ReactNode
     }) {
 
-    const [selectedTab, setSelectedTab] = useState(select);
+    const [selectedState, setSelectedState] = useState(selectedTab);
+
+    const contextValues = {
+        currentSelectedTab: selectedState,
+        setCurrentSelectedTab: setSelectedState
+    };
 
     return (
-        <div className="flex gap-2 flex-col items-center justify-center">
-            {children}
-        </div>
+        <TabContext.Provider value={contextValues}>
+            <div className="flex gap-2 flex-col items-center justify-center">{children}</div>
+        </TabContext.Provider>
     );
 }
 
-function TabButtonList({ children }:
+export function TabButtonList({ children }:
     {
-        children: React.ReactNode,
+        children: React.ReactNode
     }) {
 
     return (
@@ -31,39 +41,30 @@ function TabButtonList({ children }:
     );
 }
 
-function TabButton({ label, children }:
+export function TabButton({ label, children }:
     {
         label: string,
-        children: React.ReactNode,
+        children: React.ReactNode
     }) {
 
-    const classList = "w-full px-4 py-1 rounded-md",
+    const { currentSelectedTab, setCurrentSelectedTab } = useContext(TabContext);
+
+    const commonClass = "w-full px-4 py-1 rounded-md",
         classListSelected = "bg-white shadow-md",
         classListNotSelected = "hover:bg-gray-200 transition-all";
 
-    const [selectedTab, setSelectedTab] = useState("signUp");
-
-    function handleClick() {
-        setSelectedTab(children as string);
-        console.log(selectedTab);
-    }
-
-    if (children === selectedTab) {
-        return (
-            <Button mode="button" onClick={handleClick} variante="no-style" className={`${classList} ${classListSelected}`}>
-                {children}
-            </Button>
-        );
-    }
+    const classList = currentSelectedTab === label ?
+        `${commonClass} ${classListSelected}` :
+        `${commonClass} ${classListNotSelected}`;
 
     return (
-        <Button mode="button" onClick={handleClick} variante="no-style" className={`${classList} ${classListNotSelected}`}>
+        <button onClick={() => setCurrentSelectedTab(label)} className={classList}>
             {children}
-        </Button>
+        </button>
     );
 }
 
-function TabContentList({ children }:
+export function TabContentList({ children }:
     {
         children: React.ReactNode,
     }) {
@@ -73,19 +74,13 @@ function TabContentList({ children }:
     );
 }
 
-function TabContent({ label, children }:
+export function TabContent({ label, children }:
     {
         label: string,
         children: React.ReactNode,
     }) {
 
-    if (label === "signUp") {
-        return (
-            <div>{children}</div>
-        );
-    }
+    const { currentSelectedTab, setCurrentSelectedTab } = useContext(TabContext);
 
-    return null;
+    return currentSelectedTab === label ? <div>{children}</div> : null;
 }
-
-export { Tab, TabButton, TabButtonList, TabContent, TabContentList };

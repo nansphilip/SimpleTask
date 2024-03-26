@@ -10,7 +10,7 @@ export default function Login() {
         <>
             <Header />
             <main className="flex-1 flex flex-col justify-center items-center">
-                <Tab select="signUp">
+                <Tab selectedTab="signUp">
                     <TabButtonList>
                         <TabButton label="signUp">Sign In</TabButton>
                         <TabButton label="login">Login</TabButton>
@@ -25,6 +25,7 @@ export default function Login() {
                                 <Button mode="submit" className="w-full">Sign Up</Button>
                             </form>
                         </TabContent>
+                        
                         <TabContent label="login">
                             <form action="login" method="post" className="flex gap-4 flex-col justify-center items-center">
                                 <Input type="text" name="email" placeholder="Email" />
