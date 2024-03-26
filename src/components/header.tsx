@@ -27,8 +27,8 @@ export default function Header({ className }:
             </nav>
 
             <div className="flex gap-2 flex-row justify-end items-center">
-                <Button variante="border" mode="/login">Sign Up</Button>
-                <Button mode="/login">Login</Button>
+                <Button variante="border" mode="/auth">Sign Up</Button>
+                <Button mode="/auth">Login</Button>
             </div>
 
         </header>

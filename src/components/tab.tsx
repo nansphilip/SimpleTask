@@ -1,7 +1,6 @@
 'use client'
 
 import Card from "@/components/card";
-import Button from "@/components/button";
 import React, { createContext, useContext, useState } from "react";
 
 const TabContext = createContext({
@@ -9,6 +8,25 @@ const TabContext = createContext({
     setCurrentSelectedTab: (label: string) => { },
 });
 
+/**
+ * A component that manages the display of tabbed content. It initializes the selected tab based on `selectedTab` prop and provides the current selected tab state to all child components through context.
+ * 
+ * @param {Object} props - Component props.
+ * @param {string} props.selectedTab - The identifier of the initially selected tab.
+ * @param {React.ReactNode} props.children - Child components, which can be `TabButtonList` and `TabContentList`.
+ * 
+ * @example
+ * <Tab selectedTab="signUp">
+ *   <TabButtonList>
+ *     <TabButton label="signUp">Sign In</TabButton>
+ *     <TabButton label="login">Login</TabButton>
+ *   </TabButtonList>
+ *   <TabContentList>
+ *     <TabContent label="signUp">Sign Up Form...</TabContent>
+ *     <TabContent label="login">Login Form...</TabContent>
+ *   </TabContentList>
+ * </Tab>
+ */
 export function Tab({ selectedTab, children }:
     {
         selectedTab: string,
@@ -29,6 +47,12 @@ export function Tab({ selectedTab, children }:
     );
 }
 
+/**
+ * A container component for `TabButton` components. It visually organizes the buttons in a horizontal layout.
+ * 
+ * @param {Object} props - Component props.
+ * @param {React.ReactNode} props.children - `TabButton` components representing each tab.
+ */
 export function TabButtonList({ children }:
     {
         children: React.ReactNode
@@ -41,6 +65,13 @@ export function TabButtonList({ children }:
     );
 }
 
+/**
+ * Represents a clickable button for switching between tabs. It uses context to check if it is the current selected tab and updates the current selected tab on click.
+ * 
+ * @param {Object} props - Component props.
+ * @param {string} props.label - The unique identifier for this tab, used to determine if it's the current selected tab.
+ * @param {React.ReactNode} props.children - The content to display inside the button, typically the tab title.
+ */
 export function TabButton({ label, children }:
     {
         label: string,
@@ -64,6 +95,12 @@ export function TabButton({ label, children }:
     );
 }
 
+/**
+ * A container component that wraps the content of all tabs. It should contain `TabContent` components for each tab.
+ * 
+ * @param {Object} props - Component props.
+ * @param {React.ReactNode} props.children - `TabContent` components representing the content for each tab.
+ */
 export function TabContentList({ children }:
     {
         children: React.ReactNode,
@@ -74,6 +111,13 @@ export function TabContentList({ children }:
     );
 }
 
+/**
+ * Represents the content of a single tab. It renders its children only if its `label` matches the current selected tab in the context.
+ * 
+ * @param {Object} props - Component props.
+ * @param {string} props.label - The unique identifier for this content, matching the `label` of a `TabButton`.
+ * @param {React.ReactNode} props.children - The actual content to display when this tab is selected.
+ */
 export function TabContent({ label, children }:
     {
         label: string,
