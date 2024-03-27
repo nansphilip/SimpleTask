@@ -1,23 +1,28 @@
-export default function Input({ type, name, id, placeholder, value, className, required }:
+export default function Input({ type, name, id, placeholder, onChange, value, className, required, autoFocus, }:
     {
         type: string,
         name: string,
         id?: string,
         placeholder?: string,
+        onChange?: (e: any) => void,
         value?: string,
         className?: string,
         required?: any,
+        autoFocus?: any
     }) {
 
     const commonStyle = "px-4 py-1 rounded-md border border-gray-100 outline-gray-500 focus:outline focus:outline-2 transition-all";
 
-    if (id) {
-        return (
-            <input type={type} name={name} id={id} placeholder={placeholder} value={value} className={`${commonStyle}, ${className}`} required={required} />
-        );
-    }
-
     return (
-        <input type={type} name={name} id={name} placeholder={placeholder} className={`${commonStyle}, ${className}`} required={required} />
+        <input
+        type={type}
+        name={name}
+        id={id ?? name}
+        onChange={(e) => onChange(e.target.value)}
+        value={value}
+        placeholder={placeholder}
+        className={`${commonStyle}, ${className}`}
+        required={required}
+        autoFocus={autoFocus}/>
     );
 }

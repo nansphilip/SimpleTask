@@ -6,7 +6,7 @@ I've created this project to learns new modern technologies like:
 - Typescript
 - React.js
 - Next.js
-- Prisma ?
+- Prisma
 - NextAuth ?
 
 ## Configuration
