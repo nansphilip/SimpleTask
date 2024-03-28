@@ -14,7 +14,7 @@ export default function RootLayout({ children, }:
 
     return (
         <html lang="fr" className="h-full">
-            <body className={`h-full flex flex-col {inter.className}`}>{children}</body>
+            <body className={`h-full flex flex-col ${inter.className}`}>{children}</body>
         </html>
     );
 }

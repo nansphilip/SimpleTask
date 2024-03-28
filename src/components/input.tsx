@@ -18,7 +18,7 @@ export default function Input({ type, name, id, placeholder, onChange, value, cl
         type={type}
         name={name}
         id={id ?? name}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange ? (e) => onChange(e.target.value) : undefined}
         value={value}
         placeholder={placeholder}
         className={`${commonStyle}, ${className}`}

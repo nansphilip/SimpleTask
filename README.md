@@ -29,9 +29,16 @@ pnpm install @prisma/client
 
 Header
 
-- Faire un hover glissant
+- [] Faire un `hover glissant`
 
 Features
 
-- Connect a database
-- Create an user session
+- [] Create a `hash method` for password
+- [] Create a `suspense` or `loader` for submit button
+- [] Create a `popover` to give a feedback to user
+- [] Create an `user session` and store data
+
+- [] Rédiger les `JSDoc` pour les fonctions / composants
+
+- [] Dark mode
+- [] Github link

@@ -1,30 +1,45 @@
-import { PrismaClient } from '@prisma/client'
+'use server'
 
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-    const body = await request.json()
-    console.log(body)
+    const body = await request.json();
+    console.log('Server received "signUp" method:', body);
 
-    async function main() {
-        await prisma.user.create({
-            data: {
-                name: body.name,
-                email: body.email,
-                password: body.password,
-            },
+    const getUser = await prisma.user.findUnique({
+        where: { email: body.email }
+    });
+    // console.log('User founded:', getUser)
+
+    if (getUser) {
+        return Response.json({
+            status: "ok",
+            message: "Email already used",
+            content: ``,
         })
     }
 
-    main()
-        .then(async () => {
-            await prisma.$disconnect()
-        })
-        .catch(async (e) => {
-            console.error(e)
-            await prisma.$disconnect()
-            process.exit(1)
-        })
+    const createUser = await prisma.user.create({
+        data: {
+            name: body.name,
+            email: body.email,
+            password: body.password,
+        }
+    });
+    console.log('User created:', createUser)
 
-    return Response.json({ body })
+    return Response.json({
+        status: "ok",
+        message: "New user created",
+        content: {
+            user: {
+                id: createUser.id,
+                name: createUser.name,
+                email: createUser.email,
+                isPremium: createUser.isPremium,
+            }
+        },
+    })
 }
