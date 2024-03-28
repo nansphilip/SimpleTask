@@ -1,0 +1,23 @@
+.notificationAnimation {
+    bottom: -1.5rem;
+    /* bottom: 1rem; */
+    animation: notification 3s ease-in-out forwards;
+}
+
+@keyframes notification {
+    0% {
+        transform: translateY(0rem);
+    }
+
+    10% {
+        transform: translateY(-2.5rem);
+    }
+
+    90% {
+        transform: translateY(-2.5rem);
+    }
+
+    100% {
+        transform: translateY(0rem);
+    }
+}

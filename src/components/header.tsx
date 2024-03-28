@@ -1,7 +1,7 @@
 'use client'
 
+import Button from "@components/button";
 import { usePathname } from 'next/navigation';
-import Button from "@/components/button";
 import { ScanFace } from 'lucide-react';
 
 export default function Header({ className }:

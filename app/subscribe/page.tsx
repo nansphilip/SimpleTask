@@ -1,5 +1,5 @@
-import Header from "@/components/header";
-import Button from "@/components/button";
+import Header from "@components/header";
+import Button from "@components/button";
 
 export default function Subscribe() {
     return (

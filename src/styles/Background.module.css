@@ -1,0 +1,40 @@
+.backgroundAnimation {
+    --diameter: 200px;
+
+    height: var(--diameter);
+    width: var(--diameter);
+
+    position: fixed;
+    z-index: -2;
+
+    top: calc(50% - var(--diameter) / 2);
+    left: calc(50% - var(--diameter) / 2);
+
+    border-radius: 50%;
+    filter: blur(100px);
+
+    background: radial-gradient(circle at 75%, rgb(0, 255, 255), rgb(230, 0, 255));
+    animation: background 30s infinite;
+}
+
+@keyframes background {
+    0% {
+        top: calc(35% - var(--diameter) / 2);
+        left: calc(78% - var(--diameter) / 2);
+    }
+
+    33% {
+        top: calc(75% - var(--diameter) / 2);
+        left: calc(14% - var(--diameter) / 2);
+    }
+
+    66% {
+        top: calc(44% - var(--diameter) / 2);
+        left: calc(23% - var(--diameter) / 2);
+    }
+
+    100% {
+        top: calc(35% - var(--diameter) / 2);
+        left: calc(78% - var(--diameter) / 2);
+    }
+}

@@ -1,8 +1,8 @@
-import Header from "@/components/header";
-import Card from "@/components/card";
-import Button from "@/components/button";
+import Header from "@components/header";
+import Card from "@components/card";
+import Button from "@components/button";
+import Background from "@components/background";
 import Link from "next/link";
-import Background from "@/components/background";
 
 export default function Prices() {
     return (

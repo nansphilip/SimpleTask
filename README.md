@@ -29,16 +29,23 @@ pnpm install @prisma/client
 
 Header
 
-- [] Faire un `hover glissant`
+- [ ] Faire un `hover glissant`
 
 Features
 
-- [] Create a `hash method` for password
-- [] Create a `suspense` or `loader` for submit button
-- [] Create a `popover` to give a feedback to user
-- [] Create an `user session` and store data
+- [ ] Create a `notification` to give a feedback to user
+  - [x] Create UI design
+  - [x] Create system
+  - [ ] Move notification to `layout.tsx` file and give context to make it cross-pages
 
-- [] Rédiger les `JSDoc` pour les fonctions / composants
+- [ ] Create a `hash method` for password
+- [ ] Create a `suspense` or `loader` for submit button
+- [ ] Create an `user session` and store data
 
-- [] Dark mode
-- [] Github link
+- [ ] Rédiger les `JSDoc` pour les fonctions / composants
+
+- [ ] Dark mode
+  - [ ] Bouton toggle mode
+  - [ ] Appliquer des variables globales à tous les styles existants
+
+- [ ] Github link

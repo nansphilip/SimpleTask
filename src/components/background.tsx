@@ -1,3 +1,5 @@
+import styles from '@styles/Background.module.css';
+
 export default function Background() {
-    return <div className="background"></div>
+    return <div className={styles.backgroundAnimation} />;
 }

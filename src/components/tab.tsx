@@ -1,6 +1,6 @@
 'use client'
 
-import Card from "@/components/card";
+import Card from "@components/card";
 import React, { createContext, useContext, useState } from "react";
 
 const TabContext = createContext({
