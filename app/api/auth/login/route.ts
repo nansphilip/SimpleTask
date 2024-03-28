@@ -13,7 +13,13 @@ export async function POST(request: Request) {
     });
     console.log('User founded:', getUser)
 
-    if (!getUser || getUser.password !== body.password) {
+    // Verify if the passwords hash match using bcrypt
+    const bcrypt = require('bcrypt');
+    const isPasswordValid = getUser ? await bcrypt.compare(body.password, getUser.password) : false;
+    console.log('Password is valid:', isPasswordValid);
+
+    // If user does not exist or password is invalid, return "Invalid credentials"
+    if (!getUser || !isPasswordValid) {
         return Response.json({
             status: "ok",
             message: "Invalid credentials",
@@ -21,6 +27,7 @@ export async function POST(request: Request) {
         })
     }
 
+    // If user exists and password is valid, return "Valid credentials" and user data for the client session
     return Response.json({
         status: "ok",
         message: "Valid credentials",

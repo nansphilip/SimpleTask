@@ -7,7 +7,7 @@ I've created this project to learns new modern technologies like:
 - React.js
 - Next.js
 - Prisma
-- NextAuth ?
+- BCrypt.js
 
 ## Configuration
 
@@ -23,6 +23,12 @@ pnpx create-next-app@latest
 pnpx prisma init --datasource-provider mysql
 pnpx prisma migrate dev --name init
 pnpm install @prisma/client
+```
+
+`BCrypt.js` install:
+
+```bash
+pnpm install bcrypt
 ```
 
 ## Todo

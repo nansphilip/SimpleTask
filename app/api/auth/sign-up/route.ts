@@ -20,12 +20,17 @@ export async function POST(request: Request) {
             content: ``,
         })
     }
+    
+    // Hash the password using bcrypt
+    const bcrypt = require('bcrypt');
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(body.password, salt);
 
     const createUser = await prisma.user.create({
         data: {
             name: body.name,
             email: body.email,
-            password: body.password,
+            password: hashedPassword,
         }
     });
     console.log('User created:', createUser)

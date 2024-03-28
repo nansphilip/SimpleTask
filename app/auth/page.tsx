@@ -88,7 +88,7 @@ export default function Auth() {
         setTimeout(() => setNotification(<></>), 3000);
 
         if (redirect) {
-            router.push('/dashboard');
+            // router.push('/dashboard');
         }
     }
 
