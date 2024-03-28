@@ -44,9 +44,14 @@ Features
   - [x] Create system
   - [ ] Move notification to `layout.tsx` file and give context to make it cross-pages
 
-- [ ] Create a `hash method` for password
+- [x] Create a `hash method` for password
 - [ ] Create a `suspense` or `loader` for submit button
 - [ ] Create an `user session` and store data
+
+- [ ] Create an `email validation` by sending a token
+  - [ ] Use nodemailer
+  - [ ] Use crypto
+  - [ ] Use Ethereal
 
 - [ ] Rédiger les `JSDoc` pour les fonctions / composants
 

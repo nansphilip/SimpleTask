@@ -51,7 +51,7 @@ export default function Auth() {
             });
 
             data = await result.json();
-            // console.log('Fetch result:', data);
+            console.log('Fetch result:', data);
 
         } catch (error) {
             // console.error(error);
@@ -89,6 +89,7 @@ export default function Auth() {
 
         if (redirect) {
             // router.push('/dashboard');
+            setTimeout(() => router.push('/dashboard'), 3000);
         }
     }
 
@@ -107,7 +108,7 @@ export default function Auth() {
                             <form onSubmit={(event) => authentification("signUp", event)} className="flex gap-4 flex-col justify-center items-center">
                                 <Input type="text" name="name" placeholder="Name" required autoFocus onChange={setName} value={name} />
                                 <Input type="text" name="email" placeholder="Email" required onChange={setEmail} value={email} />
-                                <Input type="password" name="password" placeholder="Password" required onChange={setPassword} value={password} />
+                                <Input type="passwordToggle" name="password" placeholder="Password" required onChange={setPassword} value={password} />
                                 <Button mode="submit" className="w-full">Sign Up</Button>
                             </form>
                         </TabContent>
@@ -115,7 +116,7 @@ export default function Auth() {
                         <TabContent label="login">
                             <form onSubmit={(event) => authentification("login", event)} className="flex gap-4 flex-col justify-center items-center">
                                 <Input type="text" name="email" placeholder="Email" required autoFocus onChange={setEmail} value={email} />
-                                <Input type="password" name="password" placeholder="Password" required onChange={setPassword} value={password} />
+                                <Input type="passwordToggle" name="password" placeholder="Password" required onChange={setPassword} value={password} />
                                 <Button mode="submit" className="w-full">Login</Button>
                             </form>
                         </TabContent>
