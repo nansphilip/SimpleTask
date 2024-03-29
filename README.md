@@ -31,6 +31,12 @@ pnpm install @prisma/client
 pnpm install bcrypt
 ```
 
+`Jose` install:
+
+```bash
+pnpm install jose
+```
+
 ## Todo
 
 Header

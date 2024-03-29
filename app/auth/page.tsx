@@ -9,6 +9,7 @@ import { Tab, TabButton, TabButtonList, TabContent, TabContentList } from "@comp
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { createSession } from "@/lib";
 
 export default function Auth() {
 
@@ -40,7 +41,27 @@ export default function Auth() {
         }
         // console.log(`Client sent ${method}:`, body);
 
-        let data: { message: string } = { message: "" };
+        interface User {
+            user: {
+                id: number,
+                name: string,
+                email: string,
+                isPremium: boolean,
+            }
+        };
+
+        let data: { status: string, message: string, content: User } = {
+            status: "",
+            message: "",
+            content: {
+                user: {
+                    id: 0,
+                    name: "",
+                    email: "",
+                    isPremium: false
+                }
+            }
+        };
 
         // Send the request to the server and wait for the response
         try {
@@ -58,14 +79,14 @@ export default function Auth() {
             console.log('Failed to fetch data');
         }
 
-        let redirect = false;
+        let validSession = false;
 
         // Display a notification according to the response
         switch (data.message) {
             // Sign up cases
             case "New user created":
                 setNotification(<Notification variante="success">New user created</Notification>);
-                redirect = true;
+                validSession = true;
                 break;
 
             case "Email already used":
@@ -75,7 +96,7 @@ export default function Auth() {
             // Login cases
             case "Valid credentials":
                 setNotification(<Notification variante="success">Valid credentials</Notification>);
-                redirect = true;
+                validSession = true;
                 break;
 
             case "Invalid credentials":
@@ -83,17 +104,18 @@ export default function Auth() {
                 break;
         }
 
+        if (validSession) {
+            
+            // Create a session cookie
+            const session = await createSession(data.content);
+            console.log('Session created:', session);
+            
+            router.push('/dashboard');
+        }
+        
         // Reset the password field and the notification after 3 seconds
         setPassword('');
         setTimeout(() => setNotification(<></>), 3000);
-
-        if (redirect) {
-
-            // Create a session cookie
-
-            // router.push('/dashboard');
-            setTimeout(() => router.push('/dashboard'), 3000);
-        }
     }
 
     return (
