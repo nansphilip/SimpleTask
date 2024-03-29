@@ -3,6 +3,11 @@ import Card from "@components/card";
 import Button from "@components/button";
 import Background from "@components/background";
 import Link from "next/link";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Prices',
+}
 
 export default function Prices() {
     return (
@@ -105,7 +110,7 @@ export default function Prices() {
 
                 </div>
             </main>
-            <Background/>
+            <Background />
         </>
     );
 }

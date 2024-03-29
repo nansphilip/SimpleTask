@@ -1,5 +1,10 @@
 import Header from "@components/header";
 import Button from "@components/button";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Subscribe',
+}
 
 export default function Subscribe() {
     return (

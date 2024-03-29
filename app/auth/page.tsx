@@ -88,6 +88,9 @@ export default function Auth() {
         setTimeout(() => setNotification(<></>), 3000);
 
         if (redirect) {
+
+            // Create a session cookie
+
             // router.push('/dashboard');
             setTimeout(() => router.push('/dashboard'), 3000);
         }
@@ -97,7 +100,7 @@ export default function Auth() {
         <>
             <Header />
             <main className="flex-1 flex flex-col justify-center items-center">
-                <Tab selectedTab="signUp">
+                <Tab selectedTab="login">
                     <TabButtonList>
                         <TabButton label="signUp">Sign In</TabButton>
                         <TabButton label="login">Login</TabButton>
@@ -112,7 +115,6 @@ export default function Auth() {
                                 <Button mode="submit" className="w-full">Sign Up</Button>
                             </form>
                         </TabContent>
-
                         <TabContent label="login">
                             <form onSubmit={(event) => authentification("login", event)} className="flex gap-4 flex-col justify-center items-center">
                                 <Input type="text" name="email" placeholder="Email" required autoFocus onChange={setEmail} value={email} />

@@ -1,19 +1,17 @@
-'use server'
-
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-    const body = await request.json();
-    console.log('Server received "signUp" method:', body);
+    const userForm = await request.json();
+    console.log('Server received "signUp" method:', userForm);
 
-    const getUser = await prisma.user.findUnique({
-        where: { email: body.email }
+    const userDB = await prisma.user.findUnique({
+        where: { email: userForm.email }
     });
-    // console.log('User founded:', getUser)
+    // console.log('User founded:', userDB)
 
-    if (getUser) {
+    if (userDB) {
         return Response.json({
             status: "ok",
             message: "Email already used",
@@ -24,12 +22,12 @@ export async function POST(request: Request) {
     // Hash the password using bcrypt
     const bcrypt = require('bcrypt');
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(body.password, salt);
+    const hashedPassword = await bcrypt.hash(userForm.password, salt);
 
     const createUser = await prisma.user.create({
         data: {
-            name: body.name,
-            email: body.email,
+            name: userForm.name,
+            email: userForm.email,
             password: hashedPassword,
         }
     });

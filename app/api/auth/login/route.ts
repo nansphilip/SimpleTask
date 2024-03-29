@@ -1,25 +1,23 @@
-'use server'
-
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-    const body = await request.json();
-    console.log('Server received "login" method:', body);
+    const userForm = await request.json();
+    console.log('Server received "login" method:', userForm);
 
-    const getUser = await prisma.user.findUnique({
-        where: { email: body.email }
+    const userDB = await prisma.user.findUnique({
+        where: { email: userForm.email }
     });
-    console.log('User founded:', getUser)
+    console.log('User founded:', userDB)
 
     // Verify if the passwords hash match using bcrypt
     const bcrypt = require('bcrypt');
-    const isPasswordValid = getUser ? await bcrypt.compare(body.password, getUser.password) : false;
+    const isPasswordValid = userDB ? await bcrypt.compare(userForm.password, userDB.password) : false;
     console.log('Password is valid:', isPasswordValid);
 
     // If user does not exist or password is invalid, return "Invalid credentials"
-    if (!getUser || !isPasswordValid) {
+    if (!userDB || !isPasswordValid) {
         return Response.json({
             status: "ok",
             message: "Invalid credentials",
@@ -33,10 +31,10 @@ export async function POST(request: Request) {
         message: "Valid credentials",
         content: {
             user: {
-                id: getUser.id,
-                name: getUser.name,
-                email: getUser.email,
-                isPremium: getUser.isPremium,
+                id: userDB.id,
+                name: userDB.name,
+                email: userDB.email,
+                isPremium: userDB.isPremium,
             }
         },
     })
