@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
     const userForm = await request.json();
-    console.log('Server received "signUp" method:', userForm);
+    // console.log('Server received "signUp" method:', userForm);
 
     const userDB = await prisma.user.findUnique({
         where: { email: userForm.email }
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
             password: hashedPassword,
         }
     });
-    console.log('User created:', createUser)
+    // console.log('User created:', createUser)
 
     return Response.json({
         status: "ok",

@@ -4,15 +4,19 @@ import Button from "@components/button";
 import Background from "@components/background";
 import Link from "next/link";
 import { Metadata } from 'next';
+import { sessionGet } from "@/lib";
 
 export const metadata: Metadata = {
     title: 'Prices',
 }
 
-export default function Prices() {
+export default async function Prices() {
+
+    const session = await sessionGet();
+
     return (
         <>
-            <Header />
+            <Header isLogged={session ? true : false} />
             <main className="flex-1 flex gap-4 flex-row justify-center items-center">
                 <div className="h-[720px] flex gap-4 flex-row justify-center items-center">
 

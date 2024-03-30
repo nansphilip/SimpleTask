@@ -65,4 +65,5 @@ Features
   - [ ] Bouton toggle mode
   - [ ] Appliquer des variables globales à tous les styles existants
 
-- [ ] Github link
+- [ ] Github project link
+- [ ] Create a type file to share type across the app

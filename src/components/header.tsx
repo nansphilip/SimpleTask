@@ -2,12 +2,10 @@
 
 import Button from "@components/button";
 import { usePathname } from 'next/navigation';
-import { ScanFace } from 'lucide-react';
+import { ScanFace, LogOut } from 'lucide-react';
+import { sessionDestroy } from "@/lib";
 
-export default function Header({ className }:
-    {
-        className?: string,
-    }) {
+export default function Header({ className, isLogged }: { className?: string, isLogged: boolean }) {
 
     const pathName = usePathname();
 
@@ -28,13 +26,16 @@ export default function Header({ className }:
             </nav>
 
             <div className="flex gap-2 flex-row justify-end items-center">
-                {/* <Button variante="border" mode="/auth">Sign Up</Button>
-                <Button mode="/auth">Login</Button> */}
-                <Button mode="/auth" className="flex gap-2 flex-row justify-center items-center">
-                    <span>Auth</span>
-                    <ScanFace color="white" size={16} />
-                </Button>
-
+                {isLogged ?
+                    <Button className="flex gap-2 flex-row justify-center items-center" variante="gray" mode="button" onClick={() => sessionDestroy()}>
+                        <span>Logout</span>
+                        <LogOut color="black" size={16} />
+                    </Button> :
+                    <Button mode="/auth" className="flex gap-2 flex-row justify-center items-center">
+                        <span>Auth</span>
+                        <ScanFace color="white" size={16} />
+                    </Button>
+                }
             </div>
 
         </header>

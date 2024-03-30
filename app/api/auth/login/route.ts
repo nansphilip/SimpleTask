@@ -4,17 +4,17 @@ const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
     const userForm = await request.json();
-    console.log('Server received "login" method:', userForm);
+    // console.log('Server received "login" method:', userForm);
 
     const userDB = await prisma.user.findUnique({
         where: { email: userForm.email }
     });
-    console.log('User founded:', userDB)
+    // console.log('User founded:', userDB)
 
     // Verify if the passwords hash match using bcrypt
     const bcrypt = require('bcrypt');
     const isPasswordValid = userDB ? await bcrypt.compare(userForm.password, userDB.password) : false;
-    console.log('Password is valid:', isPasswordValid);
+    // console.log('Password is valid:', isPasswordValid);
 
     // If user does not exist or password is invalid, return "Invalid credentials"
     if (!userDB || !isPasswordValid) {

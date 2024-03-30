@@ -4,14 +4,14 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-const secretKey = process.env.SESSION_SECRET;
+const secretKey = process.env.SESSION_SECRET; // Must be a string with at least 256 bits (32 characters)
 const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: any) {
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
-        .setExpirationTime("10 sec from now")
+        .setExpirationTime("10 minutes") // 10 minutes expiration time
         .sign(key);
 }
 
@@ -22,46 +22,32 @@ export async function decrypt(input: string): Promise<any> {
     return payload;
 }
 
-interface User {
+interface Content {
     user: {
-        id: number,
-        name: string,
-        email: string,
-        isPremium: boolean,
-    }
-};
+        id: number;
+        name: string;
+        email: string;
+        isPremium: boolean;
+    };
+}
 
-// Create a session with the user data
-export async function createSession(user: User) {
-
+export async function sessionCreate(content: Content) {
     // Create the session
-    const expires = new Date(Date.now() + 300 * 1000); // 10 seconds
-    const session = await encrypt({ user, expires });
+    const expires = new Date(Date.now() + 600 * 1000); // 10 minutes
+    const session = await encrypt({ content, expires });
 
     // Save the session in a cookie
     cookies().set("session", session, { expires, httpOnly: true });
-
-    return user;
+    // console.log("Session created");
 }
 
-export async function destroySession() {
-    // Destroy the session
-    cookies().set("session", "", { expires: new Date(0) });
-}
-
-export async function getSession() {
-    const session = cookies().get("session")?.value;
-    if (!session) return null;
-    return await decrypt(session);
-}
-
-export async function updateSession(request: NextRequest) {
+export async function sessionUpdate(request: NextRequest) {
     const session = request.cookies.get("session")?.value;
     if (!session) return;
 
     // Refresh the session so it doesn't expire
     const parsed = await decrypt(session);
-    parsed.expires = new Date(Date.now() + 300 * 1000);
+    parsed.expires = new Date(Date.now() + 600 * 1000); // 10 minutes
     const res = NextResponse.next();
     res.cookies.set({
         name: "session",
@@ -70,4 +56,20 @@ export async function updateSession(request: NextRequest) {
         expires: parsed.expires,
     });
     return res;
+}
+
+export async function sessionGet() {
+    const session = cookies().get("session")?.value;
+
+    if (session) {
+        return await decrypt(session)
+    } else {
+        return null;
+    }
+}
+
+export async function sessionDestroy() {
+    // Destroy the session
+    cookies().set("session", "", { expires: new Date(0) });
+    // console.log("Session destroyed");
 }

@@ -9,7 +9,7 @@ import { Tab, TabButton, TabButtonList, TabContent, TabContentList } from "@comp
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createSession } from "@/lib";
+import { sessionCreate, sessionGet } from "@/lib";
 
 export default function Auth() {
 
@@ -41,7 +41,7 @@ export default function Auth() {
         }
         // console.log(`Client sent ${method}:`, body);
 
-        interface User {
+        interface Content {
             user: {
                 id: number,
                 name: string,
@@ -50,7 +50,7 @@ export default function Auth() {
             }
         };
 
-        let data: { status: string, message: string, content: User } = {
+        let data: { status: string, message: string, content: Content } = {
             status: "",
             message: "",
             content: {
@@ -72,7 +72,7 @@ export default function Auth() {
             });
 
             data = await result.json();
-            console.log('Fetch result:', data);
+            // console.log('Fetch result:', data);
 
         } catch (error) {
             // console.error(error);
@@ -105,22 +105,23 @@ export default function Auth() {
         }
 
         if (validSession) {
-            
+
             // Create a session cookie
-            const session = await createSession(data.content);
-            console.log('Session created:', session);
-            
+            await sessionCreate(data.content);
+            // console.log('Session created');
+
             router.push('/dashboard');
+        } else {
+
+            // Reset the password field and the notification after 3 seconds
+            setPassword('');
+            setTimeout(() => setNotification(<></>), 3000);
         }
-        
-        // Reset the password field and the notification after 3 seconds
-        setPassword('');
-        setTimeout(() => setNotification(<></>), 3000);
     }
 
     return (
         <>
-            <Header />
+            <Header isLogged={false} />
             <main className="flex-1 flex flex-col justify-center items-center">
                 <Tab selectedTab="login">
                     <TabButtonList>
