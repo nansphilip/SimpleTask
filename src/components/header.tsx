@@ -1,9 +1,9 @@
 'use client'
 
 import Button from "@components/button";
-import { usePathname } from 'next/navigation';
 import { ScanFace, LogOut } from 'lucide-react';
 import { sessionDestroy } from "@/lib";
+import { usePathname } from 'next/navigation';
 
 export default function Header({ className, isLogged }: { className?: string, isLogged: boolean }) {
 
@@ -21,8 +21,10 @@ export default function Header({ className, isLogged }: { className?: string, is
                     variante="white" mode="/prices">Prices</Button>
                 <Button className={pathName === "/subscribe" ? "font-bold" : ""}
                     variante="white" mode="/subscribe">Subscribe</Button>
-                <Button className={pathName === "/dashboard" ? "font-bold" : ""}
-                    variante="white" mode="/dashboard">Dashboard</Button>
+                {isLogged ?
+                    <Button className={pathName === "/dashboard" ? "font-bold" : ""}
+                        variante="white" mode="/dashboard">Dashboard</Button> : null
+                }
             </nav>
 
             <div className="flex gap-2 flex-row justify-end items-center">

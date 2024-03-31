@@ -1,38 +1,35 @@
-import Header from "@components/header";
-import Button from "@components/button";
-import { redirect } from 'next/navigation';
-import { Metadata } from 'next';
-import { sessionGet } from "@/lib";
+'use client';
 
-export const metadata: Metadata = {
-    title: 'Dashboard',
-}
+import { useState } from 'react';
+import Input from '@components/input';
+import Button from '@components/button';
+import Card from '@components/card';
+import TaskElement from '@components/dashboard/task-element';
 
-export default async function Dashboard() {
+export default function Dashboard() {
 
-    const session = await sessionGet();
+    const [addTask, setAddTask] = useState('');
 
-    if (!session) {
-        redirect("/auth");
-    }
-    
-    const user = session.content.user;
+    const taskList = ['Task 1', 'Task 2', 'Task 3'];
 
     return (
         <>
-            <Header isLogged={session ? true : false} />
-            <main className="flex-1 flex gap-4 flex-col justify-center items-center">
-                <h2 className="font-bold text-2xl">Dashboard page</h2>
-                <div className="w-[200px] flex gap-1 flex-col justify-center items-start">
-                    <p>{user.id}</p>
-                    <p>{user.name}</p>
-                    <p>{user.email}</p>
-                    <p>{user.isPremium ? 'Premium' : 'Free'}</p>
-                </div>
-                <div className="w-[200px] flex gap-1 flex-col justify-center items-center">
-                    <Button className="w-full" mode="/">Home</Button>
-                    <Button className="w-full" variante="gray" mode="/prices">Return</Button>
-                </div>
+            <main className="flex-1 flex gap-4 flex-col justify-start items-center p-4">
+                <Card className="w-full flex gap-2 flex-col justify-center items-start">
+                    <h2 className="font-bold text-xl">Add a task</h2>
+                    <div className="w-full flex gap-2 flex-row justify-center items-center">
+                        <Input className="w-full" type="text" name="addTask" onChange={setAddTask} value={addTask} placeholder="Add task" />
+                        <Button mode="submit" className="h-full">Add</Button>
+                    </div>
+                </Card>
+                <Card className="w-full flex gap-2 flex-col justify-center items-start">
+                    <h2 className="font-bold text-xl">My task list</h2>
+                    <ul className="w-full flex gap-2 flex-col justify-center items-center">
+                        <TaskElement value={taskList[0]} />
+                        <TaskElement value={taskList[1]} />
+                        <TaskElement value={taskList[2]} />
+                    </ul>
+                </Card>
             </main>
         </>
     );

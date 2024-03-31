@@ -52,7 +52,9 @@ Features
 
 - [x] Create a `hash method` for password
 - [ ] Create a `loader` for submit button
+
 - [ ] Create an `user session` and store data
+  - [ ] Move to database session
 
 - [ ] Create an `email validation` by sending a token
   - [ ] Use nodemailer
