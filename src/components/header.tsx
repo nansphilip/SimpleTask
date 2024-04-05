@@ -19,8 +19,6 @@ export default function Header({ className, isLogged }: { className?: string, is
                     variante="white" mode="/">Home</Button>
                 <Button className={pathName === "/prices" ? "font-bold" : ""}
                     variante="white" mode="/prices">Prices</Button>
-                <Button className={pathName === "/subscribe" ? "font-bold" : ""}
-                    variante="white" mode="/subscribe">Subscribe</Button>
                 {isLogged ?
                     <Button className={pathName === "/dashboard" ? "font-bold" : ""}
                         variante="white" mode="/dashboard">Dashboard</Button> : null

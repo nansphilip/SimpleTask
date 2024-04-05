@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import Button from '@components/button';
 
-export default function Input({ type, name, id, placeholder, onChange, value, className, required, autoFocus, }:
+export default function Input({ type, name, id, placeholder, onChange, onBlur, value, className, required, autoFocus, }:
     {
         type: string,
         name: string,
         id?: string,
         placeholder?: string,
         onChange?: (e: any) => void,
+        onBlur?: () => void,
         value?: string,
         className?: string,
         required?: any,
@@ -25,6 +26,7 @@ export default function Input({ type, name, id, placeholder, onChange, value, cl
                     : type}
                 name={name}
                 id={id ?? name}
+                onBlur={onBlur}
                 onChange={onChange ? (e) => onChange(e.target.value) : undefined}
                 value={value}
                 placeholder={placeholder}

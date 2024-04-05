@@ -48,6 +48,7 @@ export async function sessionUpdate(request: NextRequest) {
     // Refresh the session so it doesn't expire
     const parsed = await decrypt(session);
     parsed.expires = new Date(Date.now() + 600 * 1000); // 10 minutes
+
     const res = NextResponse.next();
     res.cookies.set({
         name: "session",
@@ -55,6 +56,7 @@ export async function sessionUpdate(request: NextRequest) {
         httpOnly: true,
         expires: parsed.expires,
     });
+    
     return res;
 }
 

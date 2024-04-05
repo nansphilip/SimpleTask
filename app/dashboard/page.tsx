@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import Input from '@components/input';
 import Button from '@components/button';
 import Card from '@components/card';
@@ -11,6 +11,7 @@ export default function Dashboard() {
     const [addTask, setAddTask] = useState('');
 
     const taskList = ['Task 1', 'Task 2', 'Task 3'];
+    const name = ['task1', 'task2', 'task3'];
 
     return (
         <>
@@ -25,9 +26,9 @@ export default function Dashboard() {
                 <Card className="w-full flex gap-2 flex-col justify-center items-start">
                     <h2 className="font-bold text-xl">My task list</h2>
                     <ul className="w-full flex gap-2 flex-col justify-center items-center">
-                        <TaskElement value={taskList[0]} />
-                        <TaskElement value={taskList[1]} />
-                        <TaskElement value={taskList[2]} />
+                        <TaskElement name={name[0]} value={taskList[0]} />
+                        <TaskElement name={name[1]} value={taskList[1]} />
+                        <TaskElement name={name[2]} value={taskList[2]} />
                     </ul>
                 </Card>
             </main>

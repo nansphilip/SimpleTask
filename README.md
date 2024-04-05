@@ -54,6 +54,7 @@ Features
 - [ ] Create a `loader` for submit button
 
 - [ ] Create an `user session` and store data
+  - [x] Use a middleware to update the session on every request
   - [ ] Move to database session
 
 - [ ] Create an `email validation` by sending a token
