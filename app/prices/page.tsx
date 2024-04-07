@@ -4,7 +4,7 @@ import Button from "@components/button";
 import Background from "@components/background";
 import Link from "next/link";
 import { Metadata } from 'next';
-import { sessionGet } from "@/lib";
+import { sessionGet } from "@lib/session";
 
 export const metadata: Metadata = {
     title: 'Prices',

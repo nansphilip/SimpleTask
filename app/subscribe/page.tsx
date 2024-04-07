@@ -1,7 +1,7 @@
 import Header from "@components/header";
 import Button from "@components/button";
 import { Metadata } from 'next';
-import { sessionGet } from "@/lib";
+import { sessionGet } from "@lib/session";
 
 export const metadata: Metadata = {
     title: 'Subscribe',

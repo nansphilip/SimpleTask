@@ -2,7 +2,7 @@
 
 import Button from "@components/button";
 import { ScanFace, LogOut } from 'lucide-react';
-import { sessionDestroy } from "@/lib";
+import { sessionDestroy } from "@lib/session";
 import { usePathname } from 'next/navigation';
 
 export default function Header({ className, isLogged }: { className?: string, isLogged: boolean }) {
@@ -31,7 +31,7 @@ export default function Header({ className, isLogged }: { className?: string, is
                         <span>Logout</span>
                         <LogOut color="black" size={16} />
                     </Button> :
-                    <Button mode="/auth" className="flex gap-2 flex-row justify-center items-center">
+                    <Button mode="/authentification" className="flex gap-2 flex-row justify-center items-center">
                         <span>Auth</span>
                         <ScanFace color="white" size={16} />
                     </Button>

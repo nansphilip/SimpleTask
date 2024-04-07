@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { sessionGet } from "@/lib";
+import { sessionGet } from "@lib/session";
 import { redirect } from 'next/navigation';
 import Header from "@components/header";
 
@@ -14,7 +14,7 @@ export default async function DashboardLayout({ children, }: {
     const session = await sessionGet();
 
     if (!session) {
-        redirect("/auth");
+        redirect("/authentification");
     }
 
     const user = session.content.user;

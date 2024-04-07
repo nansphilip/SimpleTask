@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 import Input from '@components/input';
 import Button from '@components/button';
 import Card from '@components/card';
+import { sessionGet } from '@lib/session';
 import TaskElement from '@components/dashboard/task-element';
+import FetchMethod from '@lib/fetch';
 
 export default function Dashboard() {
 
@@ -12,16 +14,11 @@ export default function Dashboard() {
     const [taskList, setTaskList] = useState([]);
 
     // Get the task list from the server
-    const getTaskList = async () => {
-        const response = await fetch('/api/task/getTaskList', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: 47 }),
+    async function getTaskList() {
+
+        const data = await FetchMethod('/api/task/getTaskList', { 
+            id: (await sessionGet()).content.user.id
         });
-
-        const data = await response.json();
-        // console.log('Task list brute:', data.content.taskList);
-
         return data.content.taskList;
     }
 
@@ -31,8 +28,7 @@ export default function Dashboard() {
                 return <TaskElement key={task.id} id={task.id} title={task.title} desc={task.desc} />
             });
 
-            console.log(hello);
-
+            // console.log(hello);
             setTaskList(hello);
 
         }).catch(err => {

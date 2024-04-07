@@ -1,6 +1,6 @@
 import Header from "@components/header";
 import Background from "@components/background";
-import { sessionGet } from "@/lib";
+import { sessionGet } from "@lib/session";
 
 export default async function Home() {
 
