@@ -14,6 +14,18 @@ import { sessionCreate, sessionGet } from "@/lib";
 export default function Auth() {
 
     const router = useRouter();
+    
+    async function checkSession() {
+        const session = await sessionGet();
+        console.log('Session:', session);
+        
+        if (session) {
+            router.push('/dashboard');
+        }
+    }
+    
+    checkSession();
+
     const [notification, setNotification] = useState(<></>);
 
     // Credentials fields
@@ -65,14 +77,14 @@ export default function Auth() {
 
         // Send the request to the server and wait for the response
         try {
-            const result = await fetch(address, {
+            const response = await fetch(address, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             });
 
-            data = await result.json();
-            // console.log('Fetch result:', data);
+            data = await response.json();
+            // console.log('Fetch response:', data);
 
         } catch (error) {
             // console.error(error);

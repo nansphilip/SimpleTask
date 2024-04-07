@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactElement, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Input from '@components/input';
 import Button from '@components/button';
 import Card from '@components/card';
@@ -9,9 +9,37 @@ import TaskElement from '@components/dashboard/task-element';
 export default function Dashboard() {
 
     const [addTask, setAddTask] = useState('');
+    const [taskList, setTaskList] = useState([]);
 
-    const taskList = ['Task 1', 'Task 2', 'Task 3'];
-    const name = ['task1', 'task2', 'task3'];
+    // Get the task list from the server
+    const getTaskList = async () => {
+        const response = await fetch('/api/task/getTaskList', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: 47 }),
+        });
+
+        const data = await response.json();
+        // console.log('Task list brute:', data.content.taskList);
+
+        return data.content.taskList;
+    }
+
+    useEffect(() => {
+        getTaskList().then(data => {
+            const hello = data.map((task: { id: string, title: string, desc: string }) => {
+                return <TaskElement key={task.id} id={task.id} title={task.title} desc={task.desc} />
+            });
+
+            console.log(hello);
+
+            setTaskList(hello);
+
+        }).catch(err => {
+            console.error('Error:', err);
+        });
+    }, []);
+
 
     return (
         <>
@@ -26,9 +54,7 @@ export default function Dashboard() {
                 <Card className="w-full flex gap-2 flex-col justify-center items-start">
                     <h2 className="font-bold text-xl">My task list</h2>
                     <ul className="w-full flex gap-2 flex-col justify-center items-center">
-                        <TaskElement name={name[0]} value={taskList[0]} />
-                        <TaskElement name={name[1]} value={taskList[1]} />
-                        <TaskElement name={name[2]} value={taskList[2]} />
+                        {taskList}
                     </ul>
                 </Card>
             </main>
