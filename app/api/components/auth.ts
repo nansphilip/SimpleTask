@@ -65,3 +65,9 @@ export async function Login(userForm: { email: string, password: string }) {
         content: userDB
     }
 }
+
+// Export the functions names and types
+export const authFunctions = {
+    Login,
+    SignUp,
+};

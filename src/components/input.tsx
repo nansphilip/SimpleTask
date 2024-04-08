@@ -8,7 +8,7 @@ export default function Input({ type, name, id, placeholder, onChange, onBlur, v
         id?: string,
         placeholder?: string,
         onChange?: (e: any) => void,
-        onBlur?: () => void,
+        onBlur?: (e: any) => void,
         value?: string,
         className?: string,
         required?: any,

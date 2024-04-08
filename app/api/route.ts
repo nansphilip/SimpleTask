@@ -1,24 +1,15 @@
-import { Login, SignUp } from "@app/api/authentification";
-import { GetTaskList } from "@app/api/task";
+import { Body, Data, functions } from '@lib/types';
 
-interface Body {
-    function: string,
-    param: any,
-};
-
-interface Data {
-    message: string,
-    content: object | null,
-};
-
+/**
+ * API router that handles the POST request, dynamically calls the function and returns a JSON response.
+ * @param request - The request object.
+ * @returns A promise that resolves to a JSON response.
+ */
 export async function POST(request: Request) {
     const body: Body = await request.json();
 
-    let data: Data = { message: "", content: null, };
-
-    if (body.function === 'GetTaskList') data = await GetTaskList(body.param);
-    if (body.function === 'Login') data = await Login(body.param);
-    if (body.function === 'SignUp') data = await SignUp(body.param);
+    // Dynamically call the function based on the request body
+    const data: Data = await functions[body.function](body.param);
 
     // console.log('Server received:', body);
     // console.log('Server responded:', data);

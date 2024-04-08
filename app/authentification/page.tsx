@@ -7,7 +7,7 @@ import Background from "@components/background";
 import Notification from "@components/notification";
 import { Tab, TabButton, TabButtonList, TabContent, TabContentList } from "@components/tab";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { sessionCreate, sessionGet } from "@lib/session";
 import FetchMethod from "@lib/fetch";
@@ -24,8 +24,9 @@ export default function Authentification() {
             router.push('/dashboard');
         }
     }
-
-    checkSession();
+    useEffect(() => {
+        checkSession();
+    });
 
     const [notification, setNotification] = useState(<></>);
 
@@ -60,7 +61,7 @@ export default function Authentification() {
                 setNotification(<Notification variante="success">Valid credentials</Notification>);
 
             // Create a session and redirect to the dashboard
-            await sessionCreate({user: data.content});
+            await sessionCreate({ user: data.content });
             router.push('/dashboard');
 
         } else if (data.message === "Email already used" || data.message === "Invalid credentials") {
@@ -85,7 +86,7 @@ export default function Authentification() {
 
                     <TabContentList>
                         <TabContent label="signUp">
-                            <form onSubmit={(event) => authentification(true, event)} className="flex gap-4 flex-col justify-center items-center">
+                            <form onSubmit={(e) => authentification(true, e)} className="flex gap-4 flex-col justify-center items-center">
                                 <Input type="text" name="name" placeholder="Name" required autoFocus onChange={setName} value={name} />
                                 <Input type="text" name="email" placeholder="Email" required onChange={setEmail} value={email} />
                                 <Input type="passwordToggle" name="password" placeholder="Password" required onChange={setPassword} value={password} />
@@ -93,7 +94,7 @@ export default function Authentification() {
                             </form>
                         </TabContent>
                         <TabContent label="login">
-                            <form onSubmit={(event) => authentification(false, event)} className="flex gap-4 flex-col justify-center items-center">
+                            <form onSubmit={(e) => authentification(false, e)} className="flex gap-4 flex-col justify-center items-center">
                                 <Input type="text" name="email" placeholder="Email" required autoFocus onChange={setEmail} value={email} />
                                 <Input type="passwordToggle" name="password" placeholder="Password" required onChange={setPassword} value={password} />
                                 <Button mode="submit" className="w-full">Login</Button>

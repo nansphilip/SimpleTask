@@ -57,10 +57,11 @@ Features
   - [x] Use a middleware to update the session on every request
   - [ ] Move to database session ?
 
-- [ ] Create an `universal fetch method`
+- [x] Create an `universal fetch method`
+  - [x] Partage des types
 
 - [ ] `Auth`
-  - [ ] Corriger l'erreur dans la console
+  - [x] Corriger l'erreur dans la console
   - [ ] Comprendre pourquoi les logs sont en double : mode strict ?
 
 - [ ] `Dashboard`
@@ -78,5 +79,10 @@ Features
   - [ ] Bouton toggle mode
   - [ ] Appliquer des variables globales à tous les styles existants
 
-- [ ] Github project link
+- [ ] Github project link button
+
+- [ ] Langage selector
+  - [ ] Auto select with locale
+  - [ ] Define langage preference into user account
+
 - [ ] Create a type file to share type across the app
