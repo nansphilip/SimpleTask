@@ -2,6 +2,11 @@
 
 const serverAddress = 'http://localhost:3000';
 
+interface Body {
+    function: string,
+    param: any,
+};
+
 /**
  * Sends an HTTP request to the specified address.
  * 
@@ -12,11 +17,12 @@ const serverAddress = 'http://localhost:3000';
  * @returns {Promise<any>} - A promise that resolves to the response data.
  */
 export default async function FetchMethod(
-    address: string,
-    body: object,
+    body: Body,
+    address: string = '/api', // API router address
     method: string = 'POST',
     headers: HeadersInit = { 'Content-Type': 'application/json' },
-) {
+): Promise<any> {
+
     const response = await fetch(serverAddress + address, {
         method: method,
         headers: headers,

@@ -59,6 +59,10 @@ Features
 
 - [ ] Create an `universal fetch method`
 
+- [ ] `Auth`
+  - [ ] Corriger l'erreur dans la console
+  - [ ] Comprendre pourquoi les logs sont en double : mode strict ?
+
 - [ ] `Dashboard`
   - [x] Fetch task list from database
   - [ ] Get the `fetch user id` from `user session`

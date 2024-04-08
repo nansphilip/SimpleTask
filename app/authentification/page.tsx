@@ -47,21 +47,20 @@ export default function Authentification() {
         event.preventDefault();
 
         // Send the request to the server and wait for the response
-        const data = await FetchMethod(
-            // Route of the request
-            signUp ? '/api/authentification/sign-up' : '/api/authentification/login',
-            // Body of the request
-            signUp ? { name, email, password } : { email, password }
-        );
+        const data = await FetchMethod({
+            function: signUp ? 'SignUp' : 'Login',
+            param: signUp ? { name, email, password } : { email, password },
+        });
 
         // Display a notification according to the response
         if (data.message === "New user created" || data.message === "Valid credentials") {
+
             data.message === "New user created" ?
-            setNotification(<Notification variante="success">New user created</Notification>):
-            setNotification(<Notification variante="success">Valid credentials</Notification>);
+                setNotification(<Notification variante="success">New user created</Notification>) :
+                setNotification(<Notification variante="success">Valid credentials</Notification>);
 
             // Create a session and redirect to the dashboard
-            await sessionCreate(data.content);
+            await sessionCreate({user: data.content});
             router.push('/dashboard');
 
         } else if (data.message === "Email already used" || data.message === "Invalid credentials") {
