@@ -5,9 +5,22 @@ import { ScanFace, LogOut } from 'lucide-react';
 import { sessionDestroy } from "@lib/session";
 import { usePathname } from 'next/navigation';
 
+import { useContext } from 'react';
+import { NotificationContext } from '@app/layout';
+
+
 export default function Header({ className, isLogged }: { className?: string, isLogged: boolean }) {
 
     const pathName = usePathname();
+
+    const setNotification = useContext(NotificationContext);
+
+    const logout = () => {
+        sessionDestroy();
+
+        setNotification({ text: "Logged out", variante: "info" })
+        setTimeout(() => setNotification(null), 3000);
+    }
 
     return (
         <header className={`mx-4 my-2 flex flex-row justify-between items-center ${className}`}>
@@ -27,7 +40,7 @@ export default function Header({ className, isLogged }: { className?: string, is
 
             <div className="flex gap-2 flex-row justify-end items-center">
                 {isLogged ?
-                    <Button className="flex gap-2 flex-row justify-center items-center" variante="gray" mode="button" onClick={() => sessionDestroy()}>
+                    <Button className="flex gap-2 flex-row justify-center items-center" variante="gray" mode="button" onClick={logout}>
                         <span>Logout</span>
                         <LogOut color="black" size={16} />
                     </Button> :

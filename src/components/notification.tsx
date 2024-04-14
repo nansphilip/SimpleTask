@@ -1,4 +1,5 @@
 import styles from '@styles/Notification.module.css';
+import { NotificationVariante } from '@lib/types';
 import { ReactNode } from "react";
 
 /**
@@ -11,7 +12,7 @@ import { ReactNode } from "react";
 export default function Notification({ className, variante, children }:
     {
         className?: string,
-        variante?: string,
+        variante?: NotificationVariante,
         children: ReactNode,
     }) {
 

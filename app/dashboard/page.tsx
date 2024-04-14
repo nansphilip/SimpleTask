@@ -60,7 +60,7 @@ export default function Dashboard() {
         setAddTaskDesc('');
     }
 
-    
+
     const taskListRef = useRef(taskList);
 
     useEffect(() => {
@@ -71,24 +71,22 @@ export default function Dashboard() {
         setTaskList(taskListRef.current.filter(task => Number(task.key) !== id));
     };
 
-    return (
-        <>
-            <main className="flex-1 flex gap-4 flex-col justify-start items-center p-4">
-                <Card className="w-full flex gap-2 flex-col justify-center items-start">
-                    <h2 className="font-bold text-xl">Add a task</h2>
-                    <form onSubmit={(e) => addTask(e)} className="w-full flex gap-2 flex-row justify-center items-center">
-                        <Input className="w-full" type="text" name="addTaskTitle" onChange={setAddTaskName} value={addTaskName} placeholder="Add task" required />
-                        <Input className="w-full" type="text" name="addTaskDesc" onChange={setAddTaskDesc} value={addTaskDesc} placeholder="Write a description" />
-                        <Button mode="submit" className="h-full">Add</Button>
-                    </form>
-                </Card>
-                <Card className="w-full flex gap-2 flex-col justify-center items-start">
-                    <h2 className="font-bold text-xl">My task list</h2>
-                    <ul className="w-full flex gap-2 flex-col justify-center items-center">
-                        {taskList.length ? taskList : <li className="text-gray-400">No task found...</li>}
-                    </ul>
-                </Card>
-            </main>
-        </>
-    );
+    return <>
+        <main className="flex-1 flex gap-4 flex-col justify-start items-center p-4">
+            <Card className="w-full flex gap-2 flex-col justify-center items-start">
+                <h2 className="font-bold text-xl">Add a task</h2>
+                <form onSubmit={(e) => addTask(e)} className="w-full flex gap-2 flex-row justify-center items-center">
+                    <Input className="w-full" type="text" name="addTaskTitle" onChange={setAddTaskName} value={addTaskName} placeholder="Add task" required />
+                    <Input className="w-full" type="text" name="addTaskDesc" onChange={setAddTaskDesc} value={addTaskDesc} placeholder="Write a description" />
+                    <Button mode="submit" className="h-full">Add</Button>
+                </form>
+            </Card>
+            <Card className="w-full flex gap-2 flex-col justify-center items-start">
+                <h2 className="font-bold text-xl">My task list</h2>
+                <ul className="w-full flex gap-2 flex-col justify-center items-center">
+                    {taskList.length ? taskList : <li className="text-gray-400">No task found...</li>}
+                </ul>
+            </Card>
+        </main>
+    </>
 }

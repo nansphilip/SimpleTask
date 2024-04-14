@@ -10,7 +10,7 @@ import { ReactNode } from 'react';
  */
 export default function Button({ mode, onClick, name, variante, className, children, }:
     {
-        mode: string | "style" | "button" | "submit" | "reset",
+        mode: "style" | "button" | "submit" | "reset" | string,
         onClick?: () => any,
         name?: string,
         variante?: "white" | "gray" | "border" | "danger" | "no-style",

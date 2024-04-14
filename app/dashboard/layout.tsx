@@ -13,16 +13,10 @@ export default async function DashboardLayout({ children, }: {
 
     const session = await sessionGet();
 
-    if (!session) {
-        redirect("/authentification");
-    }
+    if (!session) redirect("/authentification");
 
-    const user = session.content.user;
-
-    return (
-        <>
-            <Header isLogged={session ? true : false} />
-            {children}
-        </>
-    )
+    return <>
+        <Header isLogged={session ? true : false} />
+        {children}
+    </>
 }

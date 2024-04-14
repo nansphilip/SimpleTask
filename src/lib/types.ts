@@ -17,3 +17,5 @@ export interface Data {
     message: string,
     content: object | null,
 };
+
+export type NotificationVariante = "success" | "info" | "warning" | "danger" | "";

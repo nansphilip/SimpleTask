@@ -1,20 +1,36 @@
-import type { Metadata } from "next";
+'use client'
+
 import { Inter } from "next/font/google";
 import "@styles/globals.css";
+import React, { createContext, useState } from 'react';
+
+import Notification from "@components/notification";
+import { NotificationVariante } from "@lib/types";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-    title: "Simple Task",
-    description: "Everything is about tasks. Let's keep the organization simple!",
+interface Notification {
+    variante: NotificationVariante,
+    text: string
 };
+
+export const NotificationContext = createContext({} as React.Dispatch<React.SetStateAction<Notification | null>>);
 
 export default function RootLayout({ children, }:
     Readonly<{ children: React.ReactNode; }>) {
 
-    return (
+    const [notification, setNotification] = useState<Notification | null>(null);
+
+    return <NotificationContext.Provider value={setNotification}>
         <html lang="fr" className="h-full">
-            <body className={`h-full flex flex-col ${inter.className}`}>{children}</body>
+            <head>
+                <title>Simple Task</title>
+                <meta name="description" content="Everything is about tasks. Let's keep the organization simple!" />
+            </head>
+            <body className={`h-full flex flex-col ${inter.className}`}>
+                {children}
+                {notification ? <Notification variante={notification.variante}>{notification.text}</Notification> : null}
+            </body>
         </html>
-    );
+    </NotificationContext.Provider>
 }
