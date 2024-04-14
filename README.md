@@ -66,6 +66,16 @@ My toto list for Simple Task.
 `Header`
 
 - [ ] Faire un `hover glissant`
+- [ ] Responsive header
+- [ ] Github project link button
+
+- [ ] Dark mode
+  - [ ] Bouton toggle mode
+  - [ ] Appliquer des variables globales à tous les styles existants
+
+- [ ] Langage selector
+  - [ ] Auto select with locale
+  - [ ] Define langage preference into user account
 
 ### Global features
 
@@ -88,14 +98,4 @@ My toto list for Simple Task.
 
 - [ ] Rédiger les `JSDoc` pour les fonctions / composants
 
-- [ ] Dark mode
-  - [ ] Bouton toggle mode
-  - [ ] Appliquer des variables globales à tous les styles existants
-
-- [ ] Github project link button
-
-- [ ] Langage selector
-  - [ ] Auto select with locale
-  - [ ] Define langage preference into user account
-
-- [ ] Create a type file to share type across the app
+- [x] Create a type file to share type across the app

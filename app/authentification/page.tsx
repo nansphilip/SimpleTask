@@ -9,18 +9,17 @@ import { sessionCreate, sessionGet } from "@lib/session";
 import FetchMethod from "@lib/fetch";
 import { NotificationContext } from '@app/layout';
 import React, { useContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Authentification() {
 
     const router = useRouter();
-    const linkParam = new URLSearchParams(window.location.search).get('redirect');
-    const redirectLink = linkParam ? linkParam : '/dashboard';
+    const redirectLink = useSearchParams().get('redirect') ?? 'dashboard';
 
     // Check if user is already logged in
     async function checkSession() {
         const session = await sessionGet();
-        if (session) router.push(redirectLink);
+        if (session) router.push("/" + redirectLink);
     }
 
     useEffect(() => { checkSession() });
