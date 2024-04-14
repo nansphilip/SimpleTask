@@ -8,8 +8,8 @@ export default async function Home() {
 
     return <>
         <Header isLogged={session ? true : false} />
-        <main className="flex-1 flex gap-4 flex-col justify-center items-center">
-            <h1 className="font-bold text-2xl">Simple Task</h1>
+        <main className="flex flex-1 flex-col items-center justify-center gap-4">
+            <h1 className="text-2xl font-bold">Simple Task</h1>
             <p className="italic">Everything is about tasks. Let&apos;s keep the organization simple!</p>
         </main>
         <Background />

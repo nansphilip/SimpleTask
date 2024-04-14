@@ -16,14 +16,14 @@ export default async function Prices() {
 
     return <>
         <Header isLogged={session ? true : false} />
-        <main className="flex-1 flex gap-4 flex-row justify-center items-center">
-            <div className="h-[720px] flex gap-4 flex-row justify-center items-center">
+        <main className="flex flex-1 flex-row items-center justify-center gap-4">
+            <div className="flex h-[720px] flex-row items-center justify-center gap-4">
 
                 <Link className="h-full" href={session ? "/dashboard" : "/authentification?redirect=dashboard"}>
-                    <Card className="h-full w-[400px] flex gap-4 flex-col hover:bg-gray-50 hover:border-gray-400 transition-all">
-                        <h2 className="text-2xl font-bold text-center">Gratuit</h2>
+                    <Card className="flex h-full w-[400px] flex-col gap-4 transition-all hover:border-gray-400 hover:bg-gray-50">
+                        <h2 className="text-center text-2xl font-bold">Gratuit</h2>
                         <hr />
-                        <ul className="flex gap-4 flex-col">
+                        <ul className="flex flex-col gap-4">
                             <li>
                                 <h3 className="font-bold">Gestion des tâches</h3>
                                 <ul className="ml-8 list-disc">
@@ -64,10 +64,10 @@ export default async function Prices() {
                 </Link>
 
                 <Link className="h-full" href={session ? "/subscribe" : "/authentification?redirect=subscribe"}>
-                    <Card className="h-full w-[400px] flex gap-4 flex-col hover:bg-gray-50 hover:border-gray-400 transition-all">
-                        <h2 className="text-2xl font-bold text-center">Abonnement</h2>
+                    <Card className="flex h-full w-[400px] flex-col gap-4 transition-all hover:border-gray-400 hover:bg-gray-50">
+                        <h2 className="text-center text-2xl font-bold">Abonnement</h2>
                         <hr />
-                        <ul className="flex gap-4 flex-col">
+                        <ul className="flex flex-col gap-4">
                             <li><h3 className="font-bold">Propriétés des tâches</h3>
                                 <ul className="ml-8 list-disc">
                                     <li>Sous-tâches</li>

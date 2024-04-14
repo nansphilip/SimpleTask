@@ -23,11 +23,11 @@ export default function Header({ className, isLogged }: { className?: string, is
     }
 
     return (
-        <header className={`mx-4 my-2 flex flex-row justify-between items-center ${className}`}>
+        <header className={`mx-4 my-2 flex flex-row items-center justify-between ${className}`}>
 
             <Button variante="no-style" className="text-2xl font-bold hover:text-gray-700" mode="/">Simple Task</Button>
 
-            <nav className="flex gap-4 flex-row justify-center items-center">
+            <nav className="flex flex-row items-center justify-center gap-4">
                 <Button className={pathName === "/" ? "font-bold" : ""}
                     variante="white" mode="/">Home</Button>
                 <Button className={pathName === "/prices" ? "font-bold" : ""}
@@ -38,13 +38,13 @@ export default function Header({ className, isLogged }: { className?: string, is
                 }
             </nav>
 
-            <div className="flex gap-2 flex-row justify-end items-center">
+            <div className="flex flex-row items-center justify-end gap-2">
                 {isLogged ?
-                    <Button className="flex gap-2 flex-row justify-center items-center" variante="gray" mode="button" onClick={logout}>
+                    <Button className="flex flex-row items-center justify-center gap-2" variante="gray" mode="button" onClick={logout}>
                         <span>Logout</span>
                         <LogOut color="black" size={16} />
                     </Button> :
-                    <Button mode="/authentification" className="flex gap-2 flex-row justify-center items-center">
+                    <Button mode="/authentification" className="flex flex-row items-center justify-center gap-2">
                         <span>Auth</span>
                         <ScanFace color="white" size={16} />
                     </Button>

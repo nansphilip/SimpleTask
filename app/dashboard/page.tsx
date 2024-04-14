@@ -72,18 +72,18 @@ export default function Dashboard() {
     };
 
     return <>
-        <main className="flex-1 flex gap-4 flex-col justify-start items-center p-4">
-            <Card className="w-full flex gap-2 flex-col justify-center items-start">
-                <h2 className="font-bold text-xl">Add a task</h2>
-                <form onSubmit={(e) => addTask(e)} className="w-full flex gap-2 flex-row justify-center items-center">
+        <main className="flex flex-1 flex-col items-center justify-start gap-4 p-4">
+            <Card className="flex w-full flex-col items-start justify-center gap-2">
+                <h2 className="text-xl font-bold">Add a task</h2>
+                <form onSubmit={(e) => addTask(e)} className="flex w-full flex-row items-center justify-center gap-2">
                     <Input className="w-full" type="text" name="addTaskTitle" onChange={setAddTaskName} value={addTaskName} placeholder="Add task" required />
                     <Input className="w-full" type="text" name="addTaskDesc" onChange={setAddTaskDesc} value={addTaskDesc} placeholder="Write a description" />
                     <Button mode="submit" className="h-full">Add</Button>
                 </form>
             </Card>
-            <Card className="w-full flex gap-2 flex-col justify-center items-start">
-                <h2 className="font-bold text-xl">My task list</h2>
-                <ul className="w-full flex gap-2 flex-col justify-center items-center">
+            <Card className="flex w-full flex-col items-start justify-center gap-2">
+                <h2 className="text-xl font-bold">My task list</h2>
+                <ul className="flex w-full flex-col items-center justify-center gap-2">
                     {taskList.length ? taskList : <li className="text-gray-400">No task found...</li>}
                 </ul>
             </Card>

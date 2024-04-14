@@ -42,7 +42,7 @@ export function Tab({ selectedTab, children }:
 
     return (
         <TabContext.Provider value={contextValues}>
-            <div className="flex gap-2 flex-col items-center justify-center">{children}</div>
+            <div className="flex flex-col items-center justify-center gap-2">{children}</div>
         </TabContext.Provider>
     );
 }
@@ -59,7 +59,7 @@ export function TabButtonList({ children }:
     }) {
 
     return (
-        <div className="w-full flex gap-2 flex-row items-center justify-center p-1 rounded-md bg-gray-100">
+        <div className="flex w-full flex-row items-center justify-center gap-2 rounded-md bg-gray-100 p-1">
             {children}
         </div>
     );

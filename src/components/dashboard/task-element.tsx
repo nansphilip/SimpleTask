@@ -55,8 +55,8 @@ export default function TaskElement({ id, title, desc, onDelete }:
     };
 
     return (
-        <li className="w-full flex gap-2 flex-row justify-center items-center">
-            <form onSubmit={(e) => deleteTask(e)} onBlur={() => taskTitle ? setConfirmDelete(false) : null} className="w-full h-full flex gap-2 flex-row justify-center items-center">
+        <li className="flex w-full flex-row items-center justify-center gap-2">
+            <form onSubmit={(e) => deleteTask(e)} onBlur={() => taskTitle ? setConfirmDelete(false) : null} className="flex size-full flex-row items-center justify-center gap-2">
                 <Input className="w-full" type="text" name={`title-${id}`} onBlur={updateTask} onChange={setTaskTitle} value={taskTitle} placeholder="Title" />
                 <Input className="w-full" type="text" name={`desc-${id}`} onBlur={updateTask} onChange={setTaskDesc} value={taskDesc} placeholder="Description" />
                 {confirmDelete ?

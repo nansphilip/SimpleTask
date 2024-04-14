@@ -27,7 +27,7 @@ export default function RootLayout({ children, }:
                 <title>Simple Task</title>
                 <meta name="description" content="Everything is about tasks. Let's keep the organization simple!" />
             </head>
-            <body className={`h-full flex flex-col ${inter.className}`}>
+            <body className={`flex h-full flex-col ${inter.className}`}>
                 {children}
                 {notification ? <Notification variante={notification.variante}>{notification.text}</Notification> : null}
             </body>

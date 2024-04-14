@@ -47,9 +47,9 @@ export default function Notification({ className, variante, children }:
     }
 
     return (
-        <div className="fixed z-[-1] h-full w-full flex flex-row justify-center items-end">
-            <div className={`relative ${styles.notificationAnimation} flex gap-2 flex-row justify-center items-center px-2 text-sm shadow-md rounded-md border ${classVariante} ${className}`}>
-                <div className={`h-[8px] w-[8px] rounded-full border ${classVarianteDot}`}></div>
+        <div className="fixed z-[-1] flex size-full flex-row items-end justify-center">
+            <div className={`relative ${styles.notificationAnimation} flex flex-row items-center justify-center gap-2 rounded-md border px-2 text-sm shadow-md ${classVariante} ${className}`}>
+                <div className={`size-[8px] rounded-full border ${classVarianteDot}`}></div>
                 <div>{children}</div>
             </div>
         </div>

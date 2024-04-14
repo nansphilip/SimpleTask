@@ -32,10 +32,10 @@ export default function Subscribe() {
 
     return <>
         <Header isLogged={session ? true : false} />
-        <main className="flex-1 flex gap-8 flex-row justify-center items-center">
+        <main className="flex flex-1 flex-row items-center justify-center gap-8">
 
-            <div className="flex gap-8 flex-row justify-center items-center">
-                <Card className="h-full w-[300px] flex gap-2 flex-col justify-start items-start">
+            <div className="flex flex-row items-center justify-center gap-8">
+                <Card className="flex h-full w-[300px] flex-col items-start justify-start gap-2">
                     <h2 className="text-xl font-bold">Invoice</h2>
                     <div className="w-full">
                         <h3 className="italic">Account</h3>
@@ -58,13 +58,13 @@ export default function Subscribe() {
                         </div>
                     </div>
                 </Card>
-                <form action="" className="h-full w-[300px] flex gap-2 flex-col justify-start items-start">
+                <form action="" className="flex h-full w-[300px] flex-col items-start justify-start gap-2">
                     <h2 className="text-xl font-bold">Subscribing</h2>
-                    <Card className="w-full flex gap-2 flex-row justify-start items-center">
+                    <Card className="flex w-full flex-row items-center justify-start gap-2">
                         <Input className="focus:outline-none" type="radio" name="subscribe" id="monthly" />
                         <span>Mensuel</span>
                     </Card>
-                    <Card className="w-full flex gap-2 flex-row justify-start items-center">
+                    <Card className="flex w-full flex-row items-center justify-start gap-2">
                         <Input className="focus:outline-none" type="radio" name="subscribe" id="annual" />
                         <span>Annuel</span>
                     </Card>

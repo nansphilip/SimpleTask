@@ -31,7 +31,7 @@ export default function Input({ type, name, id, placeholder, onChange, onBlur, v
             onChange={onChange ? (e) => onChange(e.target.value) : undefined}
             value={value}
             placeholder={placeholder}
-            className={`${commonStyle}, ${className}`}
+            className={`${commonStyle} ${className}`}
             required={required}
             autoFocus={autoFocus} />
 

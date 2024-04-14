@@ -37,36 +37,49 @@ pnpm install bcrypt
 pnpm install jose
 ```
 
+`eslint-plugin-tailwindcss` install:
+
+```bash
+pnpm i -D eslint-plugin-tailwindcss
+```
+
 ## Todo
 
-Header
+My toto list for Simple Task.
 
-- [ ] Faire un `hover glissant`
-
-Features
-
-- [ ] Create a `notification` to give a feedback to user
-  - [x] Create UI design
-  - [x] Create system
-  - [ ] Move notification to `layout.tsx` file and give context to make it cross-pages
-
-- [x] Create a `hash method` for password
-- [ ] Create a `loader` for submit button
-
-- [ ] Create an `user session` and store data
-  - [x] Use a middleware to update the session on every request
-  - [ ] Move to database session ?
-
-- [x] Create an `universal fetch method`
-  - [x] Partage des types
+### Pages
 
 - [ ] `Auth`
-  - [x] Corriger l'erreur dans la console
-  - [ ] Comprendre pourquoi les logs sont en double : mode strict ?
+  - Authentification system
+    - [x] Create a `hash method` for password
+    - [ ] Create a `loader` for submit button
+
+  - [ ] Other
+    - [ ] Comprendre pourquoi les logs sont en double : mode strict ?
 
 - [ ] `Dashboard`
   - [x] Fetch task list from database
   - [ ] Get the `fetch user id` from `user session`
+
+### Components
+
+`Header`
+
+- [ ] Faire un `hover glissant`
+
+### Global features
+
+- [x] Session management
+  - [x] Create an `user session` and store data
+  - [x] Use a middleware to update the session on every request
+
+- [x] Create a `notification` to give a feedback to user
+  - [x] Create UI design
+  - [x] Create system
+  - [x] Move notification to `layout.tsx` file and give context to make it cross-pages
+
+- [x] Create an `universal fetch method`
+  - [x] Partage des types
 
 - [ ] Create an `email validation` by sending a token
   - [ ] Use nodemailer

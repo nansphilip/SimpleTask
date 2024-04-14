@@ -73,7 +73,7 @@ export default function Authentification() {
 
     return <>
         <Header isLogged={false} />
-        <main className="flex-1 flex flex-col justify-center items-center">
+        <main className="flex flex-1 flex-col items-center justify-center">
             <Tab selectedTab="login">
                 <TabButtonList>
                     <TabButton label="signUp">Sign In</TabButton>
@@ -82,7 +82,7 @@ export default function Authentification() {
 
                 <TabContentList>
                     <TabContent label="signUp">
-                        <form onSubmit={(e) => authentification(true, e)} className="flex gap-4 flex-col justify-center items-center">
+                        <form onSubmit={(e) => authentification(true, e)} className="flex flex-col items-center justify-center gap-4">
                             <Input type="text" name="name" placeholder="Name" required autoFocus onChange={setName} value={name} />
                             <Input type="text" name="email" placeholder="Email" required onChange={setEmail} value={email} />
                             <Input type="passwordToggle" name="password" placeholder="Password" required onChange={setPassword} value={password} />
@@ -90,7 +90,7 @@ export default function Authentification() {
                         </form>
                     </TabContent>
                     <TabContent label="login">
-                        <form onSubmit={(e) => authentification(false, e)} className="flex gap-4 flex-col justify-center items-center">
+                        <form onSubmit={(e) => authentification(false, e)} className="flex flex-col items-center justify-center gap-4">
                             <Input type="text" name="email" placeholder="Email" required autoFocus onChange={setEmail} value={email} />
                             <Input type="passwordToggle" name="password" placeholder="Password" required onChange={setPassword} value={password} />
                             <Button mode="submit" className="w-full">Login</Button>
