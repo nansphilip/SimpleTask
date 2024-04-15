@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Button from '@components/button';
 
-export default function Input({ type, name, id, placeholder, onChange, onBlur, value, className, required, autoFocus, }:
+export default function Input({ type, name, id, placeholder, onChange, onBlur, value, className, required, autoFocus, defaultChecked}:
     {
         type: string,
         name: string,
@@ -14,7 +14,8 @@ export default function Input({ type, name, id, placeholder, onChange, onBlur, v
         value?: string,
         className?: string,
         required?: any,
-        autoFocus?: any
+        autoFocus?: any,
+        defaultChecked?: any,
     }) {
 
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -33,7 +34,9 @@ export default function Input({ type, name, id, placeholder, onChange, onBlur, v
             placeholder={placeholder}
             className={`${commonStyle} ${className}`}
             required={required}
-            autoFocus={autoFocus} />
+            autoFocus={autoFocus}
+            defaultChecked={defaultChecked}
+        />
 
         {type === "passwordToggle" ?
             <Button variante="border" className="w-full" mode="button" onClick={() => { passwordVisible ? setPasswordVisible(false) : setPasswordVisible(true); }}>

@@ -1,12 +1,13 @@
 'use client'
 
-import { Inter, Nanum_Brush_Script } from "next/font/google";
+import { Inter } from "next/font/google";
 import "@styles/globals.css";
 import React, { createContext, useState } from 'react';
 
 import Notification from "@components/notification";
 import { NotificationVariante } from "@lib/types";
 import ScreenSize from "@components/screenSize";
+import Background from "@components/background";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,8 @@ export default function RootLayout({ children, }:
             </head>
             <body className={`flex h-full flex-col ${inter.className}`}>
                 {children}
+                <Background />
+
                 {notification ? <Notification variante={notification.variante}>{notification.text}</Notification> : null}
                 {process.env.NODE_ENV === 'development' ? <ScreenSize /> : null}
             </body>

@@ -1,5 +1,4 @@
 import Header from "@components/header";
-import Background from "@components/background";
 import { sessionGet } from "@lib/session";
 
 export default async function Home() {
@@ -12,6 +11,5 @@ export default async function Home() {
             <h1 className="text-2xl font-bold">Simple Task</h1>
             <p className="italic">Everything is about tasks. Let&apos;s keep the organization simple!</p>
         </main>
-        <Background />
     </>
 }

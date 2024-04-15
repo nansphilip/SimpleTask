@@ -3,7 +3,6 @@
 import Header from "@components/header";
 import Button from "@components/button";
 import Input from "@components/input";
-import Background from "@components/background";
 import { Tab, TabButton, TabButtonList, TabContent, TabContentList } from "@components/tab";
 import { sessionCreate, sessionGet } from "@lib/session";
 import FetchMethod from "@lib/fetch";
@@ -98,6 +97,5 @@ export default function Authentification() {
                 </TabContentList>
             </Tab>
         </main>
-        <Background />
     </>
 }

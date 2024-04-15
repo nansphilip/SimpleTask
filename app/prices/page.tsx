@@ -1,7 +1,6 @@
 import Header from "@components/header";
 import Card from "@components/card";
 import Button from "@components/button";
-import Background from "@components/background";
 import Link from "next/link";
 import { Metadata } from 'next';
 import { sessionGet } from "@lib/session";
@@ -113,6 +112,5 @@ export default async function Prices() {
 
             </div>
         </main>
-        <Background />
     </>
 }
