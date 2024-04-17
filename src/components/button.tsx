@@ -3,15 +3,15 @@ import { ReactNode } from 'react';
 
 /**
  * 
- * @param mode can be a link: `"/pathPage"`, a button type: `"button"`, `"submit"`, `"reset"`, or a styled div: `"style"`
+ * @param mode can be a link: `"/pathPage"`, a button type: `"button"`, `"submit"` or a styled div: `"style"`
  * @param variante can be `"white"`, `"gray"`, `"border"`, or `"no-style"`
  * @param className can override the default style
  * @returns `<a>`, `<button>`, or `<div>`
  */
 export default function Button({ mode, onClick, name, variante, className, children, }:
     {
-        mode: "style" | "button" | "submit" | "reset" | string,
-        onClick?: () => any,
+        mode: "style" | "button" | "submit" | string,
+        onClick?: (e?: any) => any,
         name?: string,
         variante?: "white" | "transparent" | "gray" | "border" | "danger" | "no-style",
         className?: string,
@@ -53,7 +53,7 @@ export default function Button({ mode, onClick, name, variante, className, child
         );
     }
 
-    if (mode === "button" || mode === "submit" || mode === "reset") {
+    if (mode === "button" || mode === "submit") {
         return (
             <button type={mode} name={name} onClick={onClick} className={`${varianteStyle} ${className}`}>
                 {children}

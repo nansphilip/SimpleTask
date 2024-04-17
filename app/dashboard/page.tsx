@@ -57,7 +57,7 @@ export default function Dashboard() {
         });
 
         setTaskList([...taskList,
-            <TaskElement key={data.content.id} id={data.content.id} title={data.content.title} desc={data.content.desc} status={data.content.status} onDelete={deleteTaskFromList} />
+        <TaskElement key={data.content.id} id={data.content.id} title={data.content.title} desc={data.content.desc} status={data.content.status} onDelete={deleteTaskFromList} />
         ]);
 
         setAddTaskName('');
@@ -75,29 +75,48 @@ export default function Dashboard() {
         setTaskList(taskListRef.current.filter(task => Number(task.key) !== id));
     };
 
+
+    //
+    const [taskFilterTime, setTaskFilterTime] = useState('today');
+    const [taskFilterStatus, setTaskFilterStatus] = useState('todo');
+    const [taskFilterView, setTaskFilterView] = useState('list');
+
+    const selectFilter = (e: any) => {
+        const name = e.target.name;
+
+        if (name === "reset" || name === "today" || name === "week" || name === "month") {
+            setTaskFilterTime(name)
+            console.log(taskFilterTime);
+        } else if (name === "completed" || name === "inprogress" || name === "todo" || name === "deleted") {
+            setTaskFilterStatus(name)
+            console.log(taskFilterStatus);
+        } else if (name === "list" || name === "kanban" || name === "timeline" || name === "calendar") {
+            setTaskFilterView(name)
+            console.log(taskFilterView);
+        }
+    }
+
     return <>
         <main className="flex flex-1 items-start justify-center gap-4 p-4">
             <section id="view-panel" className="h-full">
                 <Card className="flex h-full w-[200px] flex-col gap-2">
                     <h2 className="text-xl font-bold">View</h2>
-                    <nav className="w-full">
-                        <ul className="flex w-full flex-col gap-1">
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Every tasks</Button></li>
-                            <hr className="my-2" />
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Today</Button></li>
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">This week</Button></li>
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">This month</Button></li>
-                            <hr className="my-2" />
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Completed</Button></li>
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">In progress</Button></li>
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">To do</Button></li>
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Deleted</Button></li>
-                            <hr className="my-2" />
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">List</Button></li>
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Kanban</Button></li>
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Timeline</Button></li>
-                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Calendar</Button></li>
-                        </ul>
+                    <nav className="flex w-full flex-col gap-1">
+                        <Button className="inline-block w-full text-start" name="reset" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">Every tasks</Button>
+                        <hr className="my-2" />
+                        <Button className="inline-block w-full text-start" name="today" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">Today</Button>
+                        <Button className="inline-block w-full text-start" name="week" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">This week</Button>
+                        <Button className="inline-block w-full text-start" name="month" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">This month</Button>
+                        <hr className="my-2" />
+                        <Button className="inline-block w-full text-start" name="completed" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">Completed</Button>
+                        <Button className="inline-block w-full text-start" name="inprogress" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">In progress</Button>
+                        <Button className="inline-block w-full text-start" name="todo" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">To do</Button>
+                        <Button className="inline-block w-full text-start" name="deleted" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">Deleted</Button>
+                        <hr className="my-2" />
+                        <Button className="inline-block w-full text-start" name="list" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">List</Button>
+                        <Button className="inline-block w-full text-start" name="kanban" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">Kanban</Button>
+                        <Button className="inline-block w-full text-start" name="timeline" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">Timeline</Button>
+                        <Button className="inline-block w-full text-start" name="calendar" onClick={(e) => selectFilter(e)} mode="button" variante="transparent">Calendar</Button>
                     </nav>
                 </Card>
             </section>

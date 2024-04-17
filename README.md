@@ -49,7 +49,7 @@ My toto list for Simple Task.
 
 ### Issues
 
-- Prisma creates instances on each API call...
+- [x] Prisma creates instances on each API call...
 
 ### Pages
 
@@ -63,7 +63,11 @@ My toto list for Simple Task.
 
 - [ ] `Dashboard`
   - [x] Fetch task list from database
-  - [ ] Get the `fetch user id` from `user session`
+  - [x] Get the `fetch user id` from `user session`
+
+  - [ ] Save interface preferences into session or database
+  - [ ] Move edition to right panel
+  - [ ] Make left panel filter method
 
 ### Components
 
