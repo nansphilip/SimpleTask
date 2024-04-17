@@ -13,7 +13,7 @@ export default function Button({ mode, onClick, name, variante, className, child
         mode: "style" | "button" | "submit" | "reset" | string,
         onClick?: () => any,
         name?: string,
-        variante?: "white" | "gray" | "border" | "danger" | "no-style",
+        variante?: "white" | "transparent" | "gray" | "border" | "danger" | "no-style",
         className?: string,
         children: ReactNode,
     }) {
@@ -26,6 +26,9 @@ export default function Button({ mode, onClick, name, variante, className, child
             varianteStyle = `${commonStyle} text-white bg-black hover:bg-gray-800`;
             break;
         case 'white':
+            varianteStyle = `${commonStyle} text-black bg-none hover:bg-gray-100`;
+            break;
+        case 'transparent':
             varianteStyle = `${commonStyle} text-black bg-white hover:bg-gray-100`;
             break;
         case 'gray':

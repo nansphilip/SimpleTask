@@ -15,6 +15,11 @@ export default function Authentification() {
     const router = useRouter();
     const redirectLink = useSearchParams().get('redirect') ?? 'dashboard';
 
+    // Used to save time
+    // http://localhost:3000/authentification?email=nansphilip@gmail.com&password=admin
+    const emailLink = useSearchParams().get('email') ?? '';
+    const passwordLink = useSearchParams().get('password') ?? '';
+
     // Check if user is already logged in
     async function checkSession() {
         const session = await sessionGet();
@@ -25,8 +30,8 @@ export default function Authentification() {
 
     // Credentials fields
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState(emailLink);
+    const [password, setPassword] = useState(passwordLink);
 
     // Cross notification page system
     const setNotification = useContext(NotificationContext);

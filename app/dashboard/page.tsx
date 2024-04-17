@@ -72,21 +72,53 @@ export default function Dashboard() {
     };
 
     return <>
-        <main className="flex flex-1 flex-col items-center justify-start gap-4 p-4">
-            <Card className="flex w-full flex-col items-start justify-center gap-2">
-                <h2 className="text-xl font-bold">Add a task</h2>
-                <form onSubmit={(e) => addTask(e)} className="flex w-full flex-row items-center justify-center gap-2">
-                    <Input className="w-full" type="text" name="addTaskTitle" onChange={setAddTaskName} value={addTaskName} placeholder="Add task" required />
-                    <Input className="w-full" type="text" name="addTaskDesc" onChange={setAddTaskDesc} value={addTaskDesc} placeholder="Write a description" />
-                    <Button mode="submit" className="h-full">Add</Button>
-                </form>
-            </Card>
-            <Card className="flex w-full flex-col items-start justify-center gap-2">
-                <h2 className="text-xl font-bold">My task list</h2>
-                <ul className="flex w-full flex-col items-center justify-center gap-2">
-                    {taskList.length ? taskList : <li className="text-gray-400">No task found...</li>}
-                </ul>
-            </Card>
+        <main className="flex flex-1 items-start justify-center gap-4 p-4">
+            <section id="view-panel" className="h-full">
+                <Card className="flex h-full w-[200px] flex-col gap-2">
+                    <h2 className="text-xl font-bold">View</h2>
+                    <nav className="w-full">
+                        <ul className="flex w-full flex-col gap-1">
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Every tasks</Button></li>
+                            <hr />
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Today</Button></li>
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">This week</Button></li>
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">This month</Button></li>
+                            <hr />
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Completed</Button></li>
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">In progress</Button></li>
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">To do</Button></li>
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Deleted</Button></li>
+                            <hr />
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">List</Button></li>
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Kanban</Button></li>
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Timeline</Button></li>
+                            <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Calendar</Button></li>
+                        </ul>
+                    </nav>
+                </Card>
+            </section>
+            <section id="task-panel" className="flex flex-1 flex-col items-center justify-start gap-4">
+                <Card className="flex w-full flex-col items-start justify-center gap-2">
+                    <h2 className="text-xl font-bold">Add a task</h2>
+                    <form onSubmit={(e) => addTask(e)} className="flex w-full flex-row items-center justify-center gap-2">
+                        <Input className="w-full" type="text" name="addTaskTitle" onChange={setAddTaskName} value={addTaskName} placeholder="Add task" required />
+                        <Input className="w-full" type="text" name="addTaskDesc" onChange={setAddTaskDesc} value={addTaskDesc} placeholder="Write a description" />
+                        <Button mode="submit" className="h-full">Add</Button>
+                    </form>
+                </Card>
+                <Card className="flex w-full flex-col items-start justify-center gap-2">
+                    <h2 className="text-xl font-bold">My task list</h2>
+                    <ul className="flex w-full flex-col items-center justify-center gap-2">
+                        {taskList.length ? taskList : <li className="text-gray-400">No task found...</li>}
+                    </ul>
+                </Card>
+            </section>
+            <section id="edit-panel" className="h-full">
+                <Card className="flex h-full w-[200px] flex-col gap-2">
+                    <h2 className="text-xl font-bold">Edition</h2>
+                    <p>Here you can edit your tasks.</p>
+                </Card>
+            </section>
         </main>
     </>
 }

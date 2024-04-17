@@ -19,7 +19,7 @@ export default function Input({ type, name, id, placeholder, onChange, onBlur, v
     }) {
 
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const commonStyle = "px-4 py-1 rounded-md border border-gray-100 outline-gray-500 focus:outline focus:outline-2 transition-all";
+    const commonStyle = "px-4 py-1 rounded-md border border-gray-100 outline-gray-500 focus:outline focus:outline-2";
 
     return <>
         <input
