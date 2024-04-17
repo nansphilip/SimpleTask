@@ -1,0 +1,9 @@
+.positionStart {
+    transform: rotate(0deg);
+    transition: 300ms ease-in-out;
+}
+
+.deleteAnimation {
+    transform: rotate(90deg);
+    transition: 300ms ease-in-out;
+}

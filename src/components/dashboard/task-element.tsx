@@ -1,5 +1,8 @@
 import FetchMethod from '@lib/fetch';
 import { useState } from 'react';
+import { X } from 'lucide-react';
+
+import styles from '@styles/Dashboard.module.css';
 
 import Input from '@components/input';
 import Button from '@components/button';
@@ -18,17 +21,16 @@ export default function TaskElement({ id, title, desc, status, onDelete }:
     const [taskStatus, setTaskStatus] = useState(status);
     const [confirmDelete, setConfirmDelete] = useState(false);
 
+
     /**
      * Update the task title and description
      * Check if the title is empty, if so, launch the delete function
      */
-    const updateTask = async () => {
+    const updateTask = async (statusValue?: string) => {
         if (taskTitle === "") return deleteTask();
 
-console.log(`Data updated:
-Title: ${taskTitle}
-Desc: ${taskDesc}
-Status: ${taskStatus}`)
+        // If the statusValue is defined, update the task status
+        if (statusValue) setTaskStatus(statusValue);
 
         const data = await FetchMethod({
             function: 'UpdateTask',
@@ -36,14 +38,11 @@ Status: ${taskStatus}`)
                 id: id,
                 title: taskTitle,
                 desc: taskDesc,
-                status: taskStatus,
+                status: statusValue ?? taskStatus,
             }
         });
 
-console.log(`Task updated:
-Title: ${data.content.title}
-Desc: ${data.content.desc}
-Status: ${data.content.status}`)
+        // console.log("Task updated", data)
     }
 
     /**
@@ -71,17 +70,17 @@ Status: ${data.content.status}`)
     return (
         <li className="flex w-full flex-row items-center justify-center gap-2">
             <form onSubmit={(e) => deleteTask(e)} onBlur={() => taskTitle ? setConfirmDelete(false) : null} className="flex size-full flex-row items-center justify-center gap-2">
-                <Input className="w-full" type="text" name={`title-${id}`} onBlur={updateTask} onChange={setTaskTitle} value={taskTitle} placeholder="Title" />
-                <Input className="w-full" type="text" name={`desc-${id}`} onBlur={updateTask} onChange={setTaskDesc} value={taskDesc} placeholder="Description" />
-                <select className="h-full rounded-md border border-gray-100 px-4 py-1 outline-gray-500 focus:outline focus:outline-2" onBlur={updateTask} onChange={(e) => setTaskStatus(e.target.value)} value={taskStatus}>
+                <Input className="w-full" type="text" name={`title-${id}`} onBlur={() => updateTask} onChange={setTaskTitle} value={taskTitle} placeholder="Title" />
+                <Input className="w-full" type="text" name={`desc-${id}`} onBlur={() => updateTask()} onChange={setTaskDesc} value={taskDesc} placeholder="Description" />
+                <select className="h-full rounded-md border border-gray-100 px-4 py-1 outline-gray-500 focus:outline focus:outline-2" onChange={(e) => updateTask(e.target.value)} value={taskStatus}>
                     <option value="todo">To do</option>
                     <option value="pending">Pending</option>
                     <option value="inprogress">In progress</option>
                     <option value="done">Done</option>
                 </select>
-                {confirmDelete ?
-                    <Button mode="submit" name="delete" className="h-full" variante="danger">Confirm</Button> :
-                    <Button mode="submit" name="confirm" className="h-full" variante="gray">Delete</Button>}
+                <Button mode="submit" name={confirmDelete ? "delete" : "confirm"} className="h-full px-[10px]" variante={confirmDelete ? "danger" : "gray"}>
+                    <X className={confirmDelete ? styles.positionStart + " " + styles.deleteAnimation : styles.positionStart} color="black" size={16} />
+                </Button>
             </form>
         </li>
     );

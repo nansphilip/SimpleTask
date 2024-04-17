@@ -1,9 +1,12 @@
-import { PrismaClient } from '@prisma/client';
-import { AddParams, UpdateParams } from '@lib/types';
+import { prisma } from '@app/api/route'
 
-const prisma = new PrismaClient();
-
-export async function AddTask(param: AddParams) {
+export async function AddTask(param: {
+    userId: number,
+    id: number,
+    title: string,
+    desc: string,
+    status: "todo" | "pending" | "inprogress" | "done",
+}) {
     return {
         message: "Task added successfully",
         content: await prisma.task.create({
@@ -17,7 +20,12 @@ export async function AddTask(param: AddParams) {
     }
 }
 
-export async function UpdateTask(param: UpdateParams) {
+export async function UpdateTask(param: {
+    id: number,
+    title: string,
+    desc: string,
+    status: "todo" | "pending" | "inprogress" | "done",
+}) {
     return {
         message: "Task updated successfully",
         content: await prisma.task.update({

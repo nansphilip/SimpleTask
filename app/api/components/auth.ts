@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '@app/api/route'
 
 const userExists = async (email: string) => {
     return await prisma.user.findUnique({

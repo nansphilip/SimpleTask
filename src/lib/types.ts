@@ -1,4 +1,9 @@
-// Dynamic types imports for the FetchMethod
+/**
+ * This file contains all types that are shared between the API and the Frontend
+ */
+
+
+// Get types from api components to use in the frontend
 
 // Import API files
 import { authFunctions } from "@api/auth";
@@ -10,7 +15,7 @@ export const functions = { ...authFunctions, ...taskFunctions };
 // Global interface to dynamically share every available body functions
 export interface Body {
     function: keyof typeof functions;
-    param: any;
+    param: any; // todo: type param for each function ?
 };
 
 export interface Data {
@@ -18,19 +23,5 @@ export interface Data {
     content: object | null,
 };
 
+// Notification types
 export type NotificationVariante = "success" | "info" | "warning" | "danger" | "";
-
-export interface AddParams {
-    userId: number,
-    id: number,
-    title: string,
-    desc: string,
-    status:"todo" | "pending" |"inprogress" | "done",
-}
-
-export interface UpdateParams {
-    id: number,
-    title: string,
-    desc: string,
-    status:"todo" | "pending" |"inprogress" | "done",
-}
