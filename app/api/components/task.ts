@@ -1,21 +1,23 @@
 import { PrismaClient } from '@prisma/client';
+import { AddParams, UpdateParams } from '@lib/types';
 
 const prisma = new PrismaClient();
 
-export async function AddTask(param: { userId: number, title: string, desc: string }) {
+export async function AddTask(param: AddParams) {
     return {
         message: "Task added successfully",
         content: await prisma.task.create({
             data: {
+                userId: param.userId,
                 title: param.title,
                 desc: param.desc,
-                userId: param.userId,
+                status: param.status,
             }
         })
     }
 }
 
-export async function UpdateTask(param: { id: number, title: string, desc: string }) {
+export async function UpdateTask(param: UpdateParams) {
     return {
         message: "Task updated successfully",
         content: await prisma.task.update({
@@ -23,6 +25,7 @@ export async function UpdateTask(param: { id: number, title: string, desc: strin
             data: {
                 title: param.title,
                 desc: param.desc,
+                status: param.status,
             }
         })
     }

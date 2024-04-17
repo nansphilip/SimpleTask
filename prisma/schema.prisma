@@ -56,6 +56,6 @@ model Task {
 enum Status {
     todo
     pending
-    ongoing
+    inprogress
     done
 }

@@ -47,6 +47,10 @@ pnpm i -D eslint-plugin-tailwindcss
 
 My toto list for Simple Task.
 
+### Issues
+
+- Prisma creates instances on each API call...
+
 ### Pages
 
 - [ ] `Auth`

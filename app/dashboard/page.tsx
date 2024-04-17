@@ -13,6 +13,7 @@ export default function Dashboard() {
 
     const [addTaskName, setAddTaskName] = useState('');
     const [addTaskDesc, setAddTaskDesc] = useState('');
+    const [addTaskStatus, setAddTaskStatus] = useState('todo');
     const [taskList, setTaskList] = useState<JSX.Element[]>([]);
 
     // On page load
@@ -27,8 +28,8 @@ export default function Dashboard() {
 
         // Show the task list on the page
         GetTaskList().then(data => {
-            const fetchedList = data.content.map((task: { id: number, title: string, desc: string }) => {
-                return <TaskElement key={task.id} id={task.id} title={task.title} desc={task.desc} onDelete={deleteTaskFromList} />
+            const fetchedList = data.content.map((task: { id: number, title: string, desc: string, status: string }) => {
+                return <TaskElement key={task.id} id={task.id} title={task.title} desc={task.desc} status={task.status} onDelete={deleteTaskFromList} />
             });
 
             setTaskList(fetchedList);
@@ -51,10 +52,13 @@ export default function Dashboard() {
                 userId: (await sessionGet()).content.user.id,
                 title: addTaskName,
                 desc: addTaskDesc,
+                status: addTaskStatus,
             }
         });
 
-        setTaskList([...taskList, <TaskElement key={data.content.id} id={data.content.id} title={data.content.title} desc={data.content.desc} onDelete={deleteTaskFromList} />]);
+        setTaskList([...taskList,
+            <TaskElement key={data.content.id} id={data.content.id} title={data.content.title} desc={data.content.desc} status={data.content.status} onDelete={deleteTaskFromList} />
+        ]);
 
         setAddTaskName('');
         setAddTaskDesc('');
@@ -79,16 +83,16 @@ export default function Dashboard() {
                     <nav className="w-full">
                         <ul className="flex w-full flex-col gap-1">
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Every tasks</Button></li>
-                            <hr />
+                            <hr className="my-2" />
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Today</Button></li>
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">This week</Button></li>
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">This month</Button></li>
-                            <hr />
+                            <hr className="my-2" />
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Completed</Button></li>
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">In progress</Button></li>
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">To do</Button></li>
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Deleted</Button></li>
-                            <hr />
+                            <hr className="my-2" />
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">List</Button></li>
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Kanban</Button></li>
                             <li className="w-full"><Button className="inline-block w-full text-start" mode="/dashboard" variante="transparent">Timeline</Button></li>
@@ -97,12 +101,18 @@ export default function Dashboard() {
                     </nav>
                 </Card>
             </section>
-            <section id="task-panel" className="flex flex-1 flex-col items-center justify-start gap-4">
+            <section id="task-panel" className="flex size-full flex-col items-center justify-start gap-4">
                 <Card className="flex w-full flex-col items-start justify-center gap-2">
                     <h2 className="text-xl font-bold">Add a task</h2>
                     <form onSubmit={(e) => addTask(e)} className="flex w-full flex-row items-center justify-center gap-2">
                         <Input className="w-full" type="text" name="addTaskTitle" onChange={setAddTaskName} value={addTaskName} placeholder="Add task" required />
                         <Input className="w-full" type="text" name="addTaskDesc" onChange={setAddTaskDesc} value={addTaskDesc} placeholder="Write a description" />
+                        <select className="h-full rounded-md border border-gray-100 px-4 py-1 outline-gray-500 focus:outline focus:outline-2" onChange={(e) => setAddTaskStatus(e.target.value)}>
+                            <option value="todo">To do</option>
+                            <option value="pending">Pending</option>
+                            <option value="inprogress">In progress</option>
+                            <option value="done">Done</option>
+                        </select>
                         <Button mode="submit" className="h-full">Add</Button>
                     </form>
                 </Card>

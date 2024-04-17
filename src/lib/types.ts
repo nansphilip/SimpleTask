@@ -19,3 +19,18 @@ export interface Data {
 };
 
 export type NotificationVariante = "success" | "info" | "warning" | "danger" | "";
+
+export interface AddParams {
+    userId: number,
+    id: number,
+    title: string,
+    desc: string,
+    status:"todo" | "pending" |"inprogress" | "done",
+}
+
+export interface UpdateParams {
+    id: number,
+    title: string,
+    desc: string,
+    status:"todo" | "pending" |"inprogress" | "done",
+}
