@@ -7,12 +7,13 @@ import styles from '@styles/Dashboard.module.css';
 import Input from '@components/input';
 import Button from '@components/button';
 
-export default function TaskElement({ id, title, desc, status, onDelete }:
+export default function TaskElement({ id, title, desc, status, onUpdate, onDelete }:
     {
         id: number,
         title: string,
         desc: string,
         status: string,
+        onUpdate: (task: { id: number, title: string, desc: string, status: string }) => void,
         onDelete: (id: number) => void
     }) {
 
@@ -26,11 +27,11 @@ export default function TaskElement({ id, title, desc, status, onDelete }:
      * Update the task title and description
      * Check if the title is empty, if so, launch the delete function
      */
-    const updateTask = async (statusValue?: string) => {
+    const updateTask = async (newStatusValue?: string) => {
         if (taskTitle === "") return deleteTask();
 
-        // If the statusValue is defined, update the task status
-        if (statusValue) setTaskStatus(statusValue);
+        // If the newStatusValue is defined, update the task status
+        if (newStatusValue) setTaskStatus(newStatusValue);
 
         const data = await FetchMethod({
             function: 'UpdateTask',
@@ -38,11 +39,11 @@ export default function TaskElement({ id, title, desc, status, onDelete }:
                 id: id,
                 title: taskTitle,
                 desc: taskDesc,
-                status: statusValue ?? taskStatus,
+                status: newStatusValue ?? taskStatus,
             }
         });
 
-        // console.log("Task updated", data)
+        onUpdate(data.content);
     }
 
     /**
@@ -70,7 +71,7 @@ export default function TaskElement({ id, title, desc, status, onDelete }:
     return (
         <li className="flex w-full flex-row items-center justify-center gap-2">
             <form onSubmit={(e) => deleteTask(e)} onBlur={() => taskTitle ? setConfirmDelete(false) : null} className="flex size-full flex-row items-center justify-center gap-2">
-                <Input className="w-full" type="text" name={`title-${id}`} onBlur={() => updateTask} onChange={setTaskTitle} value={taskTitle} placeholder="Title" />
+                <Input className="w-full" type="text" name={`title-${id}`} onBlur={() => updateTask()} onChange={setTaskTitle} value={taskTitle} placeholder="Title" />
                 <Input className="w-full" type="text" name={`desc-${id}`} onBlur={() => updateTask()} onChange={setTaskDesc} value={taskDesc} placeholder="Description" />
                 <select className="h-full rounded-md border border-gray-100 px-4 py-1 outline-gray-500 focus:outline focus:outline-2" onChange={(e) => updateTask(e.target.value)} value={taskStatus}>
                     <option value="todo">To do</option>
