@@ -15,10 +15,10 @@ export default function Button({ mode, onClick, name, variante, className, child
         name?: string,
         variante?: "white" | "transparent" | "gray" | "border" | "danger" | "no-style",
         className?: string,
-        children: ReactNode,
+        children?: ReactNode,
     }) {
 
-    const commonStyle = "px-4 py-1 rounded-md text-sm text-center transition-all";
+    const commonStyle = "px-4 py-1 rounded-md text-sm text-center transition-all user-select-none";
     let varianteStyle = "";
 
     switch (variante) {

@@ -98,9 +98,9 @@ export default function Dashboard() {
     }, [taskList, taskFilterStatus]);
 
 
-    return <main className="flex flex-1 items-start justify-center gap-4 overflow-y-hidden p-4">
+    return <main className="flex flex-1 items-start justify-center gap-2 overflow-hidden p-4">
         <ViewPanel taskFilterTime={taskFilterTime} setTaskFilterTime={setTaskFilterTime} taskFilterStatus={taskFilterStatus} setTaskFilterStatus={setTaskFilterStatus} taskFilterView={taskFilterView} setTaskFilterView={setTaskFilterView} />
-        <section id="task-panel" className="flex size-full flex-1 flex-col items-center justify-start gap-4 overflow-y-hidden">
+        <section id="task-panel" className="flex size-full flex-1 flex-col items-center justify-start gap-4 overflow-hidden">
             <Card className="flex w-full flex-col items-start justify-center gap-2">
                 <h2 className="text-xl font-bold">Add a task</h2>
                 <form onSubmit={(e) => addTask(e)} className="flex w-full flex-row items-center justify-center gap-2">
@@ -115,13 +115,13 @@ export default function Dashboard() {
                     <Button mode="submit" className="h-full">Add</Button>
                 </form>
             </Card>
-            <Card className="flex w-full flex-1 flex-col items-start justify-center gap-2 overflow-y-hidden">
+            <Card className="flex w-full flex-1 flex-col items-start justify-center gap-2 overflow-hidden">
                 <h2 className="text-xl font-bold">My task list</h2>
-                <ul className="flex w-full flex-1 flex-col items-center justify-start gap-2 overflow-y-auto">
+                <ul className="flex w-full flex-1 flex-col items-center justify-start gap-2 overflow-y-auto overflow-x-hidden pr-1">
                     {taskListFiltered.length ? taskListFiltered : <li className="text-gray-400">No task found...</li>}
                 </ul>
             </Card>
         </section>
-        <EditionPanel />
+        <EditionPanel taskList={taskList} setTaskList={setTaskList} />
     </main>
 }
