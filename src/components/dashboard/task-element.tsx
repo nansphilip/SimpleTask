@@ -51,14 +51,14 @@ export default function TaskElement({ id, title, desc, status, onClick, onDelete
     else if (taskStatus === 'done') taskStatusColor = 'bg-green-300';
 
     return (
-        <li className="flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-md border px-4 py-0.5 hover:bg-slate-50" onClick={onClick}>
+        <li className="flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-md border border-gray-200 px-4 py-0.5 hover:bg-slate-50" onClick={onClick}>
             <form name={String(id)} onSubmit={(e) => deleteTask(e)} onBlur={() => taskTitle ? setConfirmDelete(false) : null} className="flex size-full items-center justify-between">
                 <div className="flex flex-col">
                     <p className="font-medium">{taskTitle}</p>
                     <p className="text-xs">{taskDesc}</p>
                 </div>
                 <div className="flex gap-2">
-                    <p className={`${taskStatusColor} rounded px-2`}>{taskStatus}</p>
+                    <p className={`${taskStatusColor} rounded px-2 text-gray-800`}>{taskStatus}</p>
                     <Button mode="submit" name={confirmDelete ? "delete" : "confirm"} className="h-full px-[5px]" variante={confirmDelete ? "danger" : "gray"}>
                         <X className={confirmDelete ? styles.positionStart + " " + styles.deleteAnimation : styles.positionStart} color="black" size={16} />
                     </Button>

@@ -43,7 +43,9 @@ export default function EditionPanel({ selectedTask }: {
     }
 
     const [editionPanelVisibility, setEditionPanelVisibility] = useState(false);
-    // const [editionPanelVisibility, setEditionPanelVisibility] = useState(window.innerWidth < 640);
+    useEffect(() => {
+        if (window.innerWidth < 640) setEditionPanelVisibility(true);
+    }, []);
     let showPanel = editionPanelVisibility ? "hidden" : "";
 
     return <section id="edit-panel" className="flex h-full items-center justify-center gap-2">

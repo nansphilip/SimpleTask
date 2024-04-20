@@ -4,7 +4,7 @@ import Button from "@components/button";
 import Card from "@components/card";
 import SelectCircle from "@components/dashboard/select-circle";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ViewPanel({
     taskFilterTime,
@@ -23,7 +23,9 @@ export default function ViewPanel({
 }) {
 
     const [viewPanelVisibility, setViewPanelVisibility] = useState(false);
-    // const [viewPanelVisibility, setViewPanelVisibility] = useState(window.innerWidth < 640);
+    useEffect(() => {
+        if (window.innerWidth < 640) setViewPanelVisibility(true);
+    }, []);
     let showPanel = viewPanelVisibility ? "hidden" : "";
 
     const selectFilter = (e: any) => {
