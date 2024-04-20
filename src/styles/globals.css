@@ -22,13 +22,13 @@
 /* Scroll Bar Design */
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: rgb(219, 219, 219);
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 /* Handle on hover */

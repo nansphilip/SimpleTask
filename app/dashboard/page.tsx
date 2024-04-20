@@ -16,7 +16,19 @@ export default function Dashboard() {
     const [addTaskName, setAddTaskName] = useState('');
     const [addTaskDesc, setAddTaskDesc] = useState('');
     const [addTaskStatus, setAddTaskStatus] = useState('todo');
+
+    // Task list
     const [taskList, setTaskList] = useState<JSX.Element[]>([]);
+    // Select a task to edit
+    const [selectedTask, setSelectedTask] = useState<{ id: number, title: string, desc: string, status: string }>({ id: 0, title: '', desc: '', status: '' });
+
+    const selectATask = (e: any) => {
+        let element = e.target;
+        while (element.nodeName !== 'FORM') {
+            element = element.parentNode;
+        }
+        setSelectedTask(taskListRef.current.filter(task => Number(task.key) === Number(element.name))[0].props);
+    }
 
     // On page load
     useEffect(() => {
@@ -31,7 +43,7 @@ export default function Dashboard() {
         // Show the task list on the page
         GetTaskList().then(data => {
             const fetchedList = data.content.map((task: { id: number, title: string, desc: string, status: string }) => {
-                return <TaskElement key={task.id} id={task.id} title={task.title} desc={task.desc} status={task.status} onUpdate={updateTaskIntoTaskList} onDelete={deleteTaskFromList} />
+                return <TaskElement key={task.id} id={task.id} title={task.title} desc={task.desc} status={task.status} onClick={(e)=>(selectATask(e))} onDelete={deleteTaskFromList} />
             });
 
             setTaskList(fetchedList);
@@ -53,13 +65,12 @@ export default function Dashboard() {
             param: {
                 userId: (await sessionGet()).content.user.id,
                 title: addTaskName,
-                desc: addTaskDesc,
                 status: addTaskStatus,
             }
         });
 
         setTaskList([...taskList,
-        <TaskElement key={data.content.id} id={data.content.id} title={data.content.title} desc={data.content.desc} status={data.content.status} onUpdate={updateTaskIntoTaskList} onDelete={deleteTaskFromList} />
+        <TaskElement key={data.content.id} id={data.content.id} title={data.content.title} desc={data.content.desc} status={data.content.status} onClick={(e)=>(selectATask(e))} onDelete={deleteTaskFromList} />
         ]);
 
         setAddTaskName('');
@@ -76,7 +87,7 @@ export default function Dashboard() {
     const updateTaskIntoTaskList = (task: { id: number, title: string, desc: string, status: string }) => {
         setTaskList(taskListRef.current.map(taskEl => {
             if (Number(taskEl.key) === task.id) {
-                return <TaskElement key={task.id} id={task.id} title={task.title} desc={task.desc} status={task.status} onUpdate={updateTaskIntoTaskList} onDelete={deleteTaskFromList} />
+                return <TaskElement key={task.id} id={task.id} title={task.title} desc={task.desc} status={task.status} onClick={(e)=>(selectATask(e))} onDelete={deleteTaskFromList} />
             }
             else return taskEl;
         }));
@@ -98,15 +109,16 @@ export default function Dashboard() {
     }, [taskList, taskFilterStatus]);
 
 
+
     return <main className="flex flex-1 items-start justify-center gap-2 overflow-hidden p-4">
         <ViewPanel taskFilterTime={taskFilterTime} setTaskFilterTime={setTaskFilterTime} taskFilterStatus={taskFilterStatus} setTaskFilterStatus={setTaskFilterStatus} taskFilterView={taskFilterView} setTaskFilterView={setTaskFilterView} />
+        
         <section id="task-panel" className="flex size-full flex-1 flex-col items-center justify-start gap-4 overflow-hidden">
             <Card className="flex w-full flex-col items-start justify-center gap-2">
                 <h2 className="text-xl font-bold">Add a task</h2>
                 <form onSubmit={(e) => addTask(e)} className="flex w-full flex-row items-center justify-center gap-2">
                     <Input className="w-full" type="text" name="addTaskTitle" onChange={setAddTaskName} value={addTaskName} placeholder="Add task" required />
-                    <Input className="w-full" type="text" name="addTaskDesc" onChange={setAddTaskDesc} value={addTaskDesc} placeholder="Write a description" />
-                    <select className="h-full rounded-md border border-gray-100 px-4 py-1 outline-gray-500 focus:outline focus:outline-2" onChange={(e) => setAddTaskStatus(e.target.value)}>
+                    <select name="addTaskStatus" id="addTaskStatus" className="h-full rounded-md border border-gray-100 px-4 py-1 outline-gray-500 focus:outline focus:outline-2" onChange={(e) => setAddTaskStatus(e.target.value)}>
                         <option value="todo">To do</option>
                         <option value="pending">Pending</option>
                         <option value="inprogress">In progress</option>
@@ -117,11 +129,12 @@ export default function Dashboard() {
             </Card>
             <Card className="flex w-full flex-1 flex-col items-start justify-center gap-2 overflow-hidden">
                 <h2 className="text-xl font-bold">My task list</h2>
-                <ul className="flex w-full flex-1 flex-col items-center justify-start gap-2 overflow-y-auto overflow-x-hidden pr-1">
+                <ul className="flex w-full flex-1 flex-col items-center justify-start gap-1 overflow-y-auto overflow-x-hidden pr-1">
                     {taskListFiltered.length ? taskListFiltered : <li className="text-gray-400">No task found...</li>}
                 </ul>
             </Card>
         </section>
-        <EditionPanel taskList={taskList} setTaskList={setTaskList} />
+
+        <EditionPanel selectedTask={selectedTask} />
     </main>
 }

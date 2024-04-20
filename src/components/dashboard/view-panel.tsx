@@ -23,15 +23,15 @@ export default function ViewPanel({
 }) {
 
     const [viewPanelVisibility, setViewPanelVisibility] = useState(false);
+    // const [viewPanelVisibility, setViewPanelVisibility] = useState(window.innerWidth < 640);
     let showPanel = viewPanelVisibility ? "hidden" : "";
 
     const selectFilter = (e: any) => {
-        let name: string;
+        let element = e.target;
+        while (element.nodeName !== 'BUTTON') element = element.parentNode;
 
-        if (e.target.nodeName === "BUTTON") name = e.target.name;
-        else if (e.target.nodeName === "SPAN") name = e.target.parentElement.name;
-        else if (e.target.parentNode.nodeName === "DIV") name = e.target.parentNode.parentNode.name;
-        else name = e.target.parentNode.name;
+        const name = element.name;
+        console.log(name);
 
         if (name === "allTime" || name === "today" || name === "week" || name === "month") {
             setTaskFilterTime(name)

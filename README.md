@@ -49,7 +49,7 @@ My toto list for Simple Task.
 
 ### Issues
 
-- [x] Prisma creates instances on each API call...
+- [ ] Prisma creates instances on each API call...
 
 ### Pages
 
