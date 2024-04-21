@@ -8,10 +8,11 @@ import { ReactNode } from 'react';
  * @param className can override the default style
  * @returns `<a>`, `<button>`, or `<div>`
  */
-export default function Button({ mode, onClick, name, variante, className, children, }:
+export default function Button({ mode, onClick, onBlur, name, variante, className, children, }:
     {
         mode: "style" | "button" | "submit" | string,
         onClick?: (e?: any) => any,
+        onBlur?: (e?: any) => any,
         name?: string,
         variante?: "white" | "transparent" | "gray" | "border" | "danger" | "no-style",
         className?: string,
@@ -55,7 +56,7 @@ export default function Button({ mode, onClick, name, variante, className, child
 
     if (mode === "button" || mode === "submit") {
         return (
-            <button type={mode} name={name} onClick={onClick} className={`${varianteStyle} ${className}`}>
+            <button type={mode} name={name} onClick={onClick} onBlur={onBlur} className={`${varianteStyle} ${className}`}>
                 {children}
             </button>
         );
