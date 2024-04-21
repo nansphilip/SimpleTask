@@ -1,5 +1,22 @@
+'use client'
+
+import { useEffect, useState } from "react";
+
 export default function ScreenSize() {
+
+
+    const [screenSize, setScreenSize] = useState(0);
+
+    useEffect(() => {
+        setScreenSize(window.innerWidth);
+
+        window.addEventListener('resize', () => {
+            setScreenSize(window.innerWidth);
+        });
+    }, []);
+
     return <div className="fixed bottom-1 right-1 rounded-md border bg-white px-2">
+        <span>{screenSize}p </span>
         <span className="sm:hidden">Mobile</span>
         <span className="max-sm:hidden md:hidden">SM</span>
         <span className="max-md:hidden lg:hidden">MD</span>

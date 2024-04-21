@@ -1,10 +1,8 @@
 import FetchMethod from '@lib/fetch';
-import { MouseEventHandler, useState } from 'react';
+import { useState } from 'react';
 import { X } from 'lucide-react';
 
 import styles from '@styles/Dashboard.module.css';
-
-import Input from '@components/input';
 import Button from '@components/button';
 
 export default function TaskElement({ id, title, desc, status, onClick, onDelete }:
@@ -58,8 +56,8 @@ export default function TaskElement({ id, title, desc, status, onClick, onDelete
                     <p className="text-xs">{taskDesc}</p>
                 </div>
                 <div className="flex gap-2">
-                    <p className={`${taskStatusColor} rounded px-2 text-gray-800`}>{taskStatus}</p>
-                    <Button mode="submit" name={confirmDelete ? "delete" : "confirm"} className="h-full px-[5px]" variante={confirmDelete ? "danger" : "gray"}>
+                    <p className={`${taskStatusColor} h-fit rounded px-2 text-xs text-gray-800`}>{taskStatus}</p>
+                    <Button mode="submit" name={confirmDelete ? "delete" : "confirm"} className={`h-full px-[5px] ` + (confirmDelete ? "hover:bg-red-500" : "hover:bg-red-300" )} variante={confirmDelete ? "danger" : "gray"}>
                         <X className={confirmDelete ? styles.positionStart + " " + styles.deleteAnimation : styles.positionStart} color="black" size={16} />
                     </Button>
                 </div>

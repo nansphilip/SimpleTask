@@ -2,7 +2,7 @@
 
 import { Inter } from "next/font/google";
 import "@styles/globals.css";
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 import Notification from "@components/notification";
 import { NotificationVariante } from "@lib/types";
@@ -23,6 +23,14 @@ export default function RootLayout({ children, }:
 
     const [notification, setNotification] = useState<Notification | null>(null);
 
+    useEffect(() => {
+        if (!notification) return;
+        const element = document.querySelector('#notification') as HTMLElement;
+        const elementWidth = element.offsetWidth;
+
+        element.style.left = "calc(50% - " + Math.floor(elementWidth / 2) + "px)";
+    }, [notification]);
+
     return <NotificationContext.Provider value={setNotification}>
         <html lang="fr" className="h-full">
             <head>
@@ -32,8 +40,7 @@ export default function RootLayout({ children, }:
             <body className={`flex h-full flex-col ${inter.className}`}>
                 {children}
                 <Background />
-
-                {notification ? <Notification variante={notification.variante}>{notification.text}</Notification> : null}
+                {notification ? <Notification id="notification" variante={notification.variante}>{notification.text}</Notification> : null}
                 {process.env.NODE_ENV === 'development' ? <ScreenSize /> : null}
             </body>
         </html>

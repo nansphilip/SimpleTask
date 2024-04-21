@@ -9,9 +9,10 @@ import { ReactNode } from "react";
  * @param children is the text content of the notification
  * @returns 
  */
-export default function Notification({ className, variante, children }:
+export default function Notification({ className, id, variante, children }:
     {
         className?: string,
+        id?: string,
         variante?: NotificationVariante,
         children: ReactNode,
     }) {
@@ -34,7 +35,7 @@ export default function Notification({ className, variante, children }:
             classVariante = "bg-orange-300 border-orange-500";
             classVarianteDot = "bg-orange-500 border-orange-200";
             break;
-        
+
         case "danger":
             classVariante = "bg-red-300 border-red-500";
             classVarianteDot = "bg-red-500 border-red-200";
@@ -46,12 +47,8 @@ export default function Notification({ className, variante, children }:
             break;
     }
 
-    return (
-        <div className="fixed z-[-1] flex size-full flex-row items-end justify-center">
-            <div className={`relative ${styles.notificationAnimation} flex flex-row items-center justify-center gap-2 rounded-md border px-2 text-sm shadow-md ${classVariante} ${className}`}>
-                <div className={`size-[8px] rounded-full border ${classVarianteDot}`}></div>
-                <div>{children}</div>
-            </div>
-        </div>
-    );
+    return <div id={id} className={`fixed flex flex-row items-center justify-center gap-2 rounded-md border px-2 text-sm shadow-md ${styles.notificationAnimation} ${classVariante} ${className}`}>
+        <div className={`size-[8px] rounded-full border ${classVarianteDot}`}></div>
+        <div>{children}</div>
+    </div>
 }
