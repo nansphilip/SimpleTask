@@ -1,16 +1,16 @@
 'use client';
 
-import Input from '@components/input';
-import Button from '@components/button';
-import Card from '@components/card';
+import TaskPanel from '@components/dashboard/task-panel';
 import TaskElement from '@components/dashboard/task-element';
 import ViewPanel from '@components/dashboard/view-panel';
 import EditionPanel from '@/components/dashboard/edition-panel';
 
-import { PanelLeftOpen } from 'lucide-react';
-import { useState, useEffect, useRef, } from 'react';
+import { createContext, useState, useEffect, useRef, } from 'react';
 import { sessionGet } from '@lib/session';
 import FetchMethod from '@lib/fetch';
+
+// Creates a context to store the dashboard values
+export const DashboardContext = createContext(null as any);
 
 export default function Dashboard() {
 
@@ -98,7 +98,7 @@ export default function Dashboard() {
     const selectATaskForEdition = (e: any) => {
         // Prevents the function to trigger if the event is null
         if (e === null) return console.log('No event', e);
-        
+
         // Gets the target element from the event
         let element = e.target;
 
@@ -254,34 +254,24 @@ export default function Dashboard() {
     // [ ---------- Returns Page ----------- ]
     // [ ----- ----- ----- ----- ----- ----- ]
 
-    return <main className="flex flex-1 items-start justify-center overflow-hidden">
-        <ViewPanel taskFilterTime={taskFilterTime} setTaskFilterTime={setTaskFilterTime} taskFilterStatus={taskFilterStatus} setTaskFilterStatus={setTaskFilterStatus} taskFilterView={taskFilterView} setTaskFilterView={setTaskFilterView} viewPanelVisible={viewPanelVisible} setViewPanelVisible={setViewPanelVisible} />
-
-        <section id="task-panel" className="flex size-full flex-1 flex-col items-center justify-start gap-4 overflow-hidden px-4 pb-4">
-            <Card className="flex w-full flex-col items-start justify-center gap-2">
-                <h2 className="text-xl font-bold">Add a task</h2>
-                <form onSubmit={(e) => addTask(e)} className="flex w-full flex-row items-center justify-center gap-2">
-                    <Input className="w-full" type="text" name="addTaskTitle" onChange={setAddTaskName} value={addTaskName} placeholder="Add task" required />
-                    <select name="addTaskStatus" id="addTaskStatus" className="h-full rounded-md border border-gray-100 px-4 py-1 outline-gray-500 focus:outline focus:outline-2" onChange={(e) => setAddTaskStatus(e.target.value)}>
-                        <option value="todo">To do</option>
-                        <option value="pending">Pending</option>
-                        <option value="inprogress">In progress</option>
-                        <option value="done">Done</option>
-                    </select>
-                    <Button mode="submit" className="h-full">Add</Button>
-                </form>
-            </Card>
-            <Card className="flex w-full flex-1 flex-col items-start justify-center gap-2 overflow-hidden">
-                <div className="flex gap-2">
-                    <h2 className="text-xl font-bold">My task list</h2>
-                    <Button className={`flex items-center justify-center gap-2 px-1.5 py-0` + (viewPanelVisible === "" ? " hidden" : "")} mode="button" variante="border" onClick={() => setViewPanelVisible("")}><PanelLeftOpen color="black" size={16} /><span>Filters</span></Button>
-                </div>
-                <ul className="flex w-full flex-1 flex-col items-center justify-start gap-1 overflow-y-auto overflow-x-hidden pr-1">
-                    {taskListFiltered.length ? taskListFiltered : <li className="text-gray-400">No task found...</li>}
-                </ul>
-            </Card>
-        </section>
-
-        <EditionPanel selectedTask={selectedTask} editionPanelVisible={editionPanelVisible} setEditionPanelVisible={setEditionPanelVisible} editTaskId={editTaskId} editTaskTitle={editTaskTitle} setEditTaskTitle={setEditTaskTitle} editTaskDesc={editTaskDesc} setEditTaskDesc={setEditTaskDesc} editTaskStatus={editTaskStatus} setEditTaskStatus={setEditTaskStatus} onUpdate={updateTask} />
-    </main>
+    return <DashboardContext.Provider value={{
+        // Functions
+        addTask, updateTask, deleteTask, selectATaskForEdition,
+        // Panels visibility
+        viewPanelVisible, setViewPanelVisible, editionPanelVisible, setEditionPanelVisible,
+        // Task lists
+        taskList, setTaskList, taskListFiltered, setTaskListFiltered,
+        // Add task values
+        addTaskName, setAddTaskName, addTaskStatus, setAddTaskStatus,
+        // Selected task values
+        selectedTask, setSelectedTask, editTaskId, setEditTaskId, editTaskTitle, setEditTaskTitle, editTaskDesc, setEditTaskDesc, editTaskStatus, setEditTaskStatus,
+        // Filters values
+        taskFilterTime, setTaskFilterTime, taskFilterStatus, setTaskFilterStatus, taskFilterView, setTaskFilterView,
+    }}>
+        <main className="flex flex-1 items-start justify-center overflow-hidden px-2">
+            <ViewPanel className="h-full gap-2 pb-4 pl-2" />
+            <TaskPanel className="flex-1 px-2 pb-4" />
+            <EditionPanel className="h-full gap-2 pb-4 pr-2" />
+        </main>
+    </DashboardContext.Provider>
 }

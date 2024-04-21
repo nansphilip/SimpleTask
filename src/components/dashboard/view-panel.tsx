@@ -4,27 +4,21 @@ import Button from "@components/button";
 import Card from "@components/card";
 import SelectCircle from "@components/dashboard/select-circle";
 
-import { useState } from "react";
+import { useContext } from "react";
+import { DashboardContext } from "@app/dashboard/page";
 
-export default function ViewPanel({
-    taskFilterTime,
-    setTaskFilterTime,
-    taskFilterStatus,
-    setTaskFilterStatus,
-    taskFilterView,
-    setTaskFilterView,
-    viewPanelVisible,
-    setViewPanelVisible
-}: {
-    taskFilterTime: string,
-    setTaskFilterTime: Function,
-    taskFilterStatus: string,
-    setTaskFilterStatus: Function,
-    taskFilterView: string,
-    setTaskFilterView: Function
-    viewPanelVisible: string,
-    setViewPanelVisible: Function
-}) {
+export default function ViewPanel({ className }: { className?: string }) {
+
+    const {
+        taskFilterTime,
+        setTaskFilterTime,
+        taskFilterStatus,
+        setTaskFilterStatus,
+        taskFilterView,
+        setTaskFilterView,
+        viewPanelVisible,
+        setViewPanelVisible
+    } = useContext(DashboardContext);
 
     const selectFilter = (e: any) => {
         let element = e.target;
@@ -42,7 +36,7 @@ export default function ViewPanel({
             .map((type) => { name === type && setTaskFilterStatus(name) });
     };
 
-    return <section id="view-panel" className={`flex h-full items-center justify-center gap-2 pb-4 pl-4 ${viewPanelVisible}`}>
+    return <section id="view-panel" className={`flex items-center justify-center ${viewPanelVisible} ${className}`}>
         <Card className="flex h-full w-[200px] flex-col gap-2 overflow-y-auto">
             <nav className="flex w-full flex-col gap-1">
                 <h2 className="text-xl font-bold">View</h2>
@@ -83,6 +77,8 @@ export default function ViewPanel({
             </nav>
 
         </Card>
-        <Button className="fixed left-[calc(216px+0.3rem)] h-8 w-1.5 rounded-lg bg-slate-500 transition-all hover:h-12 hover:bg-slate-700" mode="button" variante="no-style" onClick={() => setViewPanelVisible("hidden")} />
+        <Button className="" mode="button" variante="no-style" onClick={() => setViewPanelVisible("hidden")}>
+            <div className="h-8 w-1.5 rounded-lg bg-slate-500 transition-all hover:h-12 hover:bg-slate-700"></div>
+        </Button>
     </section>
 };

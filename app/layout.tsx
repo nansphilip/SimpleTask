@@ -23,6 +23,7 @@ export default function RootLayout({ children, }:
 
     const [notification, setNotification] = useState<Notification | null>(null);
 
+    // Moves the notification on center of the screen
     useEffect(() => {
         if (!notification) return;
         const element = document.querySelector('#notification') as HTMLElement;
