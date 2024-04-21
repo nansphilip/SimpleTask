@@ -2,9 +2,7 @@ import Card from "@components/card";
 import Button from "@components/button";
 import Input from "@components/input";
 
-import { useEffect } from "react";
-
-export default function EditionPanel({ selectedTask, onUpdate, editionPanelVisible, setEditionPanelVisible, editTaskId, setEditTaskId, editTaskTitle, setEditTaskTitle, editTaskDesc, setEditTaskDesc, editTaskStatus, setEditTaskStatus, }: {
+export default function EditionPanel({ selectedTask, onUpdate, editionPanelVisible, setEditionPanelVisible, editTaskId, editTaskTitle, setEditTaskTitle, editTaskDesc, setEditTaskDesc, editTaskStatus, setEditTaskStatus, }: {
     selectedTask: { id: number, title: string, desc: string, status: string },
     onUpdate: (newStatusValue?: string) => void,
     
@@ -12,7 +10,6 @@ export default function EditionPanel({ selectedTask, onUpdate, editionPanelVisib
     setEditionPanelVisible: (visible: string) => void,
 
     editTaskId: string,
-    setEditTaskId: (id: string) => void,
     editTaskTitle: string,
     setEditTaskTitle: (title: string) => void,
     editTaskDesc: string,
@@ -20,13 +17,6 @@ export default function EditionPanel({ selectedTask, onUpdate, editionPanelVisib
     editTaskStatus: string,
     setEditTaskStatus: (status: string) => void,
 }) {
-
-    useEffect(() => {
-        setEditTaskId(String(selectedTask.id));
-        setEditTaskTitle(selectedTask.title);
-        setEditTaskDesc(selectedTask.desc ?? '');
-        setEditTaskStatus(selectedTask.status);
-    }, [selectedTask, setEditTaskId, setEditTaskTitle, setEditTaskDesc, setEditTaskStatus]);
 
     return <section id="edit-panel" className={`flex h-full items-center justify-center gap-2 pb-4 pr-4 ${editionPanelVisible}`}>
         <Button className="fixed right-[calc(316px+0.3rem)] h-8 w-1.5 rounded-lg bg-slate-500 transition-all hover:h-12 hover:bg-slate-700" mode="button" variante="no-style" onClick={() => setEditionPanelVisible("hidden")} />

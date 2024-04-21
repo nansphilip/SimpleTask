@@ -79,19 +79,29 @@ export default function Dashboard() {
 
         let element = e.target;
 
-        if (element === null) return console.log('Nulle element', element);
-        if (element.nodeName === 'BUTTON' || element.nodeName === 'svg' || element.nodeName === 'path') return console.log('No element', element.nodeName);
+        // if (element === null) return console.log('Null element', element);
+        // if (element.nodeName === 'BUTTON' || element.nodeName === 'svg' || element.nodeName === 'path') return console.log('No element', element.nodeName);
 
         while (element.nodeName !== 'FORM') {
             element = element.parentNode;
             if (element === null) return console.log('Null element', element);
         }
 
-        // console.log(e.target.nodeName, element.nodeName);
+        const taskData = taskListRef.current.filter(task => Number(task.key) === Number(element.name))[0].props.data;
+        // console.log(element.nodeName);
+        // console.log(taskData);
 
-        setSelectedTask(taskListRef.current.filter(task => Number(task.key) === Number(element.name))[0].props);
+        // Get data from the selected task
+        setSelectedTask(taskData);
         setEditionPanelVisible("");
     }
+
+    useEffect(() => {
+        setEditTaskId(String(selectedTask.id));
+        setEditTaskTitle(selectedTask.title);
+        setEditTaskDesc(selectedTask.desc ?? '');
+        setEditTaskStatus(selectedTask.status);
+    }, [selectedTask, setEditTaskId, setEditTaskTitle, setEditTaskDesc, setEditTaskStatus]);
 
     // On page load
     useEffect(() => {
@@ -104,9 +114,9 @@ export default function Dashboard() {
         }
 
         // Show the task list on the page
-        GetTaskList().then(data => {
-            const fetchedList = data.content.map((task: { id: number, title: string, desc: string, status: string }) => {
-                return <TaskElement key={task.id} id={task.id} title={task.title} desc={task.desc} status={task.status} onClick={(e) => (selectATask(e))} onDelete={deleteTaskFromList} />
+        GetTaskList().then(taskList => {
+            const fetchedList = taskList.content.map((data: { id: number, title: string, desc: string, status: string }) => {
+                return <TaskElement key={data.id} data={data} onClick={(e) => (selectATask(e))} onDelete={deleteTaskFromList} />
             });
 
             setTaskList(fetchedList);
@@ -131,7 +141,7 @@ export default function Dashboard() {
 
         setTaskList([
             ...taskList,
-            <TaskElement key={data.content.id} id={data.content.id} title={data.content.title} desc={data.content.desc} status={data.content.status} onClick={(e) => (selectATask(e))} onDelete={deleteTaskFromList} />
+            <TaskElement key={data.content.id} data={data} onClick={(e) => (selectATask(e))} onDelete={deleteTaskFromList} />
         ]);
 
         setAddTaskName('');
@@ -153,19 +163,18 @@ export default function Dashboard() {
             }
         });
 
-        const cleanedList = taskListRef.current.filter(task => Number(task.key) !== data.content.id);
+        // console.log('Task id:', editTaskId);
+        // console.log('Task list:', taskListRef.current);
 
         const updatedList = taskListRef.current.map(taskEl =>
             Number(taskEl.key) === data.content.id ?
-                <TaskElement key={data.content.id} id={data.content.id} title={data.content.title} desc={data.content.desc} status={data.content.status} onClick={(e) => (selectATask(e))} onDelete={deleteTaskFromList} />
+                <TaskElement key={data.content.id} data={data.content} onClick={(e) => (selectATask(e))} onDelete={deleteTaskFromList} />
                 : taskEl
         );
 
-        // Supprimer de la liste
-        setTaskList(cleanedList);
+        // console.log('Updated list:', updatedList);
 
-        // Remettre dans la liste
-        setTimeout(() => setTaskList(updatedList), 5);
+        setTaskList(updatedList);
     }
 
 
@@ -208,6 +217,6 @@ export default function Dashboard() {
             </Card>
         </section>
 
-        <EditionPanel selectedTask={selectedTask} editionPanelVisible={editionPanelVisible} setEditionPanelVisible={setEditionPanelVisible} editTaskId={editTaskId} setEditTaskId={setEditTaskId} editTaskTitle={editTaskTitle} setEditTaskTitle={setEditTaskTitle} editTaskDesc={editTaskDesc} setEditTaskDesc={setEditTaskDesc} editTaskStatus={editTaskStatus} setEditTaskStatus={setEditTaskStatus} onUpdate={updateTask} />
+        <EditionPanel selectedTask={selectedTask} editionPanelVisible={editionPanelVisible} setEditionPanelVisible={setEditionPanelVisible} editTaskId={editTaskId} editTaskTitle={editTaskTitle} setEditTaskTitle={setEditTaskTitle} editTaskDesc={editTaskDesc} setEditTaskDesc={setEditTaskDesc} editTaskStatus={editTaskStatus} setEditTaskStatus={setEditTaskStatus} onUpdate={updateTask} />
     </main>
 }
