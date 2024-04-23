@@ -17,6 +17,10 @@ export default function EditionPanel({ className }: { className?: string }) {
         editTaskDesc,
         setEditTaskDesc,
         editTaskStatus,
+        editTaskStartDate,
+        setEditTaskStartDate,
+        editTaskEndDate,
+        setEditTaskEndDate,
         updateTask,
     } = useContext(DashboardContext);
 
@@ -27,15 +31,22 @@ export default function EditionPanel({ className }: { className?: string }) {
         <Card className="flex h-full w-[300px] flex-col gap-2">
             <h2 className="text-xl font-bold">Edition</h2>
             {editTaskId ?
-                <form className="flex size-full flex-col items-center justify-start gap-2">
-                    <Input className="w-full" type="text" name={`editTitle-${editTaskId}`} onBlur={() => updateTask()} onChange={setEditTaskTitle} value={editTaskTitle} placeholder="Title" />
-                    <Input className="w-full" type="text" name={`editDesc-${editTaskId}`} onBlur={() => updateTask()} onChange={setEditTaskDesc} value={editTaskDesc} placeholder="Description" />
-                    <select name={`editStatus-${editTaskId}`} id={`editStatus-${editTaskId}`} className="w-full cursor-pointer rounded-md border border-gray-100 px-4 py-1 outline-gray-500 focus:outline focus:outline-2" onChange={(e) => updateTask(e.target.value)} value={editTaskStatus}>
+                <form className="flex size-full flex-col items-start justify-start gap-2">
+                    <label htmlFor={`editStartDate-${editTaskId}`}>Task</label>
+                    <Input className="mb-4 w-full" type="text" name={`editTitle-${editTaskId}`} onBlur={() => updateTask()} onChange={setEditTaskTitle} value={editTaskTitle} placeholder="Title" />
+                    <label htmlFor={`editStartDate-${editTaskId}`}>Description</label>
+                    <Input className="mb-4 w-full" type="text" name={`editDesc-${editTaskId}`} onBlur={() => updateTask()} onChange={setEditTaskDesc} value={editTaskDesc} placeholder="Description" />
+                    <label htmlFor={`editStatus-${editTaskId}`}>Status</label>
+                    <select name={`editStatus-${editTaskId}`} id={`editStatus-${editTaskId}`} className="mb-4 w-full cursor-pointer rounded-md border border-gray-100 px-4 py-1 outline-gray-500 focus:outline focus:outline-2" onChange={(e) => updateTask(e.target.value)} value={editTaskStatus}>
                         <option value="todo">To do</option>
                         <option value="pending">Pending</option>
                         <option value="inprogress">In progress</option>
                         <option value="done">Done</option>
                     </select>
+                    <label htmlFor={`editStartDate-${editTaskId}`}>Start date</label>
+                    <Input className="mb-4 w-full" type="date" name={`editStartDate-${editTaskId}`} onBlur={() => updateTask()} onChange={setEditTaskStartDate} value={editTaskStartDate} />
+                    <label htmlFor={`editEndDate-${editTaskId}`}>End date</label>
+                    <Input className="mb-4 w-full" type="date" name={`editEndDate-${editTaskId}`} onBlur={() => updateTask()} onChange={setEditTaskEndDate} value={editTaskEndDate} />
                 </form>
                 : <p>Select a task to edit it.</p>}
         </Card>

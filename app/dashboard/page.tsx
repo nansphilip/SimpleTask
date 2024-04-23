@@ -29,14 +29,16 @@ export default function Dashboard() {
 
     // Stores the selected task to edit
     const [selectedTask, setSelectedTask] = useState
-        <{ id: number, title: string, desc: string, status: string }>
-        ({ id: 0, title: '', desc: '', status: '' });
+        <{ id: number, title: string, desc: string, status: string, startDate: string, endDate: string }>
+        ({ id: 0, title: '', desc: '', status: '', startDate: '', endDate: ''});
 
     // Stores values to edit a task
     const [editTaskId, setEditTaskId] = useState('');
     const [editTaskTitle, setEditTaskTitle] = useState('');
     const [editTaskDesc, setEditTaskDesc] = useState('');
     const [editTaskStatus, setEditTaskStatus] = useState('');
+    const [editTaskStartDate, setEditTaskStartDate] = useState('');
+    const [editTaskEndDate, setEditTaskEndDate] = useState('');
 
     // Stores the task list
     const [taskList, setTaskList] = useState<JSX.Element[]>([]);
@@ -78,8 +80,11 @@ export default function Dashboard() {
             if (element === null) return console.log('Null element', element);
         }
 
-        // Gets data from the selected task, then sets it into the useState
-        setSelectedTask(taskListRef.current.filter(task => Number(task.key) === Number(element.id))[0].props.data);
+        // Gets the task data from the task list
+        const taskData = taskListRef.current.filter(task => Number(task.key) === Number(element.id))[0].props.data;
+
+        // Sets the selected task into the useState
+        setSelectedTask(taskData);
 
         // Displays the edition panel
         setEditionPanelVisible("");
@@ -131,8 +136,12 @@ export default function Dashboard() {
                 title: editTaskTitle,
                 desc: editTaskDesc,
                 status: newStatusValue ?? editTaskStatus,
+                startDate: editTaskStartDate ? new Date(editTaskStartDate) : null,
+                endDate: editTaskEndDate ? new Date(editTaskEndDate) : null,
             }
         });
+
+        // console.log('Task updated:', data);
 
         // Maps a ref array to create the updated task list
         const updatedList = taskListRef.current.map(
@@ -177,9 +186,10 @@ export default function Dashboard() {
 
         // Displays the task list on the page, and stores it into an useState
         GetTaskList().then(taskList => {
-            const fetchedList = taskList.content.map((data: { id: number, title: string, desc: string, status: string }) => {
+            const fetchedList = taskList.content.map((data: { id: number, title: string, desc: string, status: string, startDate: Date, endDate: Date }) => {
                 return <TaskElement key={data.id} data={data} onClick={(e) => (selectATaskForEdition(e))} onDelete={deleteTask} />
             });
+            // console.log('Task list:', fetchedList);
 
             // Sets the task list into the useState
             setTaskList(fetchedList);
@@ -205,6 +215,8 @@ export default function Dashboard() {
         setEditTaskTitle(selectedTask.title);
         setEditTaskDesc(selectedTask.desc ?? '');
         setEditTaskStatus(selectedTask.status);
+        setEditTaskStartDate(selectedTask.startDate ? selectedTask.startDate.slice(0, 10) : '');
+        setEditTaskEndDate(selectedTask.endDate ? selectedTask.endDate.slice(0, 10) : '');
     }, [selectedTask, setEditTaskId, setEditTaskTitle, setEditTaskDesc, setEditTaskStatus]);
 
     // Filters the task list using the time, status, and view filters
@@ -224,6 +236,7 @@ export default function Dashboard() {
     useEffect(() => {
         // Gets the window width to set the mobile or desktop mode
         window.innerWidth < 768 ? setMobileMode(true) : setMobileMode(false);
+        window.innerWidth < 768 ? setViewPanelVisible("hidden") : setViewPanelVisible("");
 
         // Gets main height to set the view panel height
         const mainEl = document.querySelector('main') as HTMLElement;
@@ -287,7 +300,13 @@ export default function Dashboard() {
         // Add task values
         addTaskName, setAddTaskName, addTaskStatus, setAddTaskStatus,
         // Selected task values
-        selectedTask, setSelectedTask, editTaskId, setEditTaskId, editTaskTitle, setEditTaskTitle, editTaskDesc, setEditTaskDesc, editTaskStatus, setEditTaskStatus,
+        selectedTask, setSelectedTask,
+        editTaskId, setEditTaskId,
+        editTaskTitle, setEditTaskTitle,
+        editTaskDesc, setEditTaskDesc,
+        editTaskStatus, setEditTaskStatus,
+        editTaskStartDate, setEditTaskStartDate,
+        editTaskEndDate, setEditTaskEndDate,
         // Filters values
         taskFilterTime, setTaskFilterTime, taskFilterStatus, setTaskFilterStatus, taskFilterView, setTaskFilterView,
     }}>

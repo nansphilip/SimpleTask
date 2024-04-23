@@ -25,6 +25,8 @@ export async function UpdateTask(param: {
     title: string,
     desc: string,
     status: "todo" | "pending" | "inprogress" | "done",
+    startDate: Date,
+    endDate: Date,
 }) {
     return {
         message: "Task updated successfully",
@@ -34,6 +36,8 @@ export async function UpdateTask(param: {
                 title: param.title,
                 desc: param.desc,
                 status: param.status,
+                startDate: param.startDate,
+                endDate: param.endDate,
             }
         })
     }

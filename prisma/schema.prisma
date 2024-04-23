@@ -39,6 +39,10 @@ model Task {
     desc   String? @db.Text
     status Status  @default(todo)
 
+    // Dates
+    startDate DateTime? @db.DateTime
+    endDate   DateTime? @db.DateTime
+
     // Timestamps
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
