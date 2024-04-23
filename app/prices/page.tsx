@@ -15,11 +15,11 @@ export default async function Prices() {
 
     return <>
         <Header isLogged={session ? true : false} />
-        <main className="flex flex-1 flex-col items-center justify-center">
+        <main className="flex flex-1 flex-col items-center justify-center p-4">
             <div className="mb-4 flex flex-row flex-wrap items-center justify-center gap-4">
 
                 <Link href={session ? "/dashboard" : "/authentification?redirect=dashboard"}>
-                    <Card className="flex h-full w-[400px] flex-col gap-4 transition-all hover:border-gray-400 hover:bg-gray-50">
+                    <Card className="flex flex-col gap-4 transition-all hover:border-gray-400 hover:bg-gray-50">
                         <h2 className="text-center text-2xl font-bold">Gratuit</h2>
                         <hr />
                         <ul className="flex flex-col gap-4">
@@ -63,7 +63,7 @@ export default async function Prices() {
                 </Link>
 
                 <Link href={session ? "/subscribe" : "/authentification?redirect=subscribe"}>
-                    <Card className="flex h-full w-[400px] flex-col gap-4 transition-all hover:border-gray-400 hover:bg-gray-50">
+                    <Card className="flex flex-col gap-4 transition-all hover:border-gray-400 hover:bg-gray-50">
                         <h2 className="text-center text-2xl font-bold">Abonnement</h2>
                         <hr />
                         <ul className="flex flex-col gap-4">

@@ -10,9 +10,15 @@ export default function ScreenSize() {
     useEffect(() => {
         setScreenSize(window.innerWidth);
 
-        window.addEventListener('resize', () => {
+        const handleResize = () => {
             setScreenSize(window.innerWidth);
-        });
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
     return <div className="fixed bottom-1 right-1 rounded-md border bg-white px-2">

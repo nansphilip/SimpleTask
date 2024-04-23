@@ -8,6 +8,7 @@ import { DashboardContext } from "@app/dashboard/page";
 export default function EditionPanel({ className }: { className?: string }) {
 
     const {
+        mobileMode,
         editionPanelVisible,
         setEditionPanelVisible,
         editTaskId,
@@ -19,9 +20,9 @@ export default function EditionPanel({ className }: { className?: string }) {
         updateTask,
     } = useContext(DashboardContext);
 
-    return <section id="edit-panel" className={`flex items-center justify-center ${editionPanelVisible} ${className}`}>
-        <Button className="" mode="button" variante="no-style" onClick={() => setEditionPanelVisible("hidden")}>
-            <div className="h-8 w-1.5 rounded-lg bg-slate-500 transition-all hover:h-12 hover:bg-slate-700"></div>
+    return <section id="edition-panel" className={`flex items-center justify-center ${className} ${editionPanelVisible}`}>
+        <Button className={mobileMode ? "flex h-full w-8 items-center justify-center" : ""} mode="button" variante="no-style" onClick={() => setEditionPanelVisible("hidden")}>
+            <div className={mobileMode ? "h-8 w-1.5 rounded-lg bg-slate-500" : "h-8 w-1.5 rounded-lg  bg-slate-500 transition-all hover:h-12 hover:bg-slate-700"}></div>
         </Button>
         <Card className="flex h-full w-[300px] flex-col gap-2">
             <h2 className="text-xl font-bold">Edition</h2>

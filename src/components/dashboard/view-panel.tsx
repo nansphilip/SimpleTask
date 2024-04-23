@@ -10,6 +10,7 @@ import { DashboardContext } from "@app/dashboard/page";
 export default function ViewPanel({ className }: { className?: string }) {
 
     const {
+        mobileMode,
         taskFilterTime,
         setTaskFilterTime,
         taskFilterStatus,
@@ -36,7 +37,7 @@ export default function ViewPanel({ className }: { className?: string }) {
             .map((type) => { name === type && setTaskFilterStatus(name) });
     };
 
-    return <section id="view-panel" className={`flex items-center justify-center ${viewPanelVisible} ${className}`}>
+    return <section id="view-panel" className={`flex items-center justify-center ${className} ${viewPanelVisible}`}>
         <Card className="flex h-full w-[200px] flex-col gap-2 overflow-y-auto">
             <nav className="flex w-full flex-col gap-1">
                 <h2 className="text-xl font-bold">View</h2>
@@ -77,8 +78,8 @@ export default function ViewPanel({ className }: { className?: string }) {
             </nav>
 
         </Card>
-        <Button className="" mode="button" variante="no-style" onClick={() => setViewPanelVisible("hidden")}>
-            <div className="h-8 w-1.5 rounded-lg bg-slate-500 transition-all hover:h-12 hover:bg-slate-700"></div>
+        <Button className={mobileMode ? "flex h-full w-8 items-center justify-center" : ""} mode="button" variante="no-style" onClick={() => setViewPanelVisible("hidden")}>
+            <div className={mobileMode ? "h-8 w-1.5 rounded-lg bg-slate-500" : "h-8 w-1.5 rounded-lg  bg-slate-500 transition-all hover:h-12 hover:bg-slate-700"}></div>
         </Button>
     </section>
 };
