@@ -2,7 +2,6 @@
  * This file contains all types that are shared between the API and the Frontend
  */
 
-
 // Get types from api components to use in the frontend
 
 // Import API files

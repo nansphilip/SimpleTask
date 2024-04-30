@@ -4,12 +4,22 @@ My toto list for Simple Task.
 
 ## Issues
 
-- [ ] Prisma creates instances on each API call...
+> **Attention:** [ ] Prisma creates instances on each API call...
+
+```bash
+warn(prisma-client) This is the 10th instance of Prisma Client being started. Make sure this is intentional.
+```
 
 ## Pages
 
 - [ ] `Auth`
-  - Authentification system
+  - [ ] Security CSRF
+    - [ ] Cookie sameSite (éviter les submits venant de domaines externes)
+    - [ ] Token CSRF en session :
+      - [ ] Créer un token à l’apparition du form
+      - [ ] Vérifier le token en session au submit du form
+
+  - [ ] Authentification system
     - [x] Create a `hash method` for password
     - [ ] Create a `loader` for submit button
 
@@ -21,8 +31,7 @@ My toto list for Simple Task.
   - [x] Get the `fetch user id` from `user session`
 
   - [ ] Save interface preferences into session or database
-  - [ ] Move edition to right panel
-  - [ ] Make left panel filter method
+  - [ ] Mobile view : side panel above task panel using blur
 
 ## Components
 
@@ -42,9 +51,10 @@ My toto list for Simple Task.
 
 ## Global features
 
-- [x] Session management
+- [ ] Session management
   - [x] Create an `user session` and store data
   - [x] Use a middleware to update the session on every request
+  - [ ] Middleware verification session for each page ?
 
 - [x] Create a `notification` to give a feedback to user
   - [x] Create UI design

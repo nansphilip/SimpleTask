@@ -32,7 +32,7 @@ export default function Subscribe() {
             setSession(response);
             setEmail(response.content.user.email);
         });
-    }, []);
+    });
 
     const [subscribe, setSubscribe] = useState(true); // monthly = true, annual = false
     const [street, setStreet] = useState('');

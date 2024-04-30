@@ -1,4 +1,4 @@
-import { prisma } from '@app/api/route'
+import prisma from '@lib/prisma'
 
 export async function AddTask(param: {
     userId: number,

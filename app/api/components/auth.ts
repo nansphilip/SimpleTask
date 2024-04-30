@@ -1,4 +1,4 @@
-import { prisma } from '@app/api/route'
+import prisma from '@lib/prisma'
 
 const userExists = async (email: string) => {
     return await prisma.user.findUnique({
@@ -58,9 +58,15 @@ export async function Login(userForm: { email: string, password: string }) {
         }
     }
 
+    // Return the user information WITHOUT the password
     return {
         message: "Valid credentials",
-        content: userDB
+        content: {
+            id: userDB.id,
+            name: userDB.name,
+            email: userDB.email,
+            isPremium: userDB.isPremium,
+        }
     }
 }
 

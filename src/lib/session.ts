@@ -4,7 +4,8 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-const secretKey = process.env.SESSION_SECRET; // Must be a string with at least 256 bits (32 characters)
+// Must be a string with at least 256 bits (32 characters)
+const secretKey = process.env.SESSION_SECRET;
 const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: any) {
@@ -31,21 +32,25 @@ interface Content {
     };
 }
 
+// Create the session
 export async function sessionCreate(content: Content) {
-    // Create the session
     const expires = new Date(Date.now() + 1000 * 60 * 30); // 30 minutes
     const session = await encrypt({ content, expires });
 
     // Save the session in a cookie
-    cookies().set("session", session, { expires, httpOnly: true });
-    // console.log("Session created");
+    cookies().set("session", session, {
+        expires, 
+        httpOnly: true,
+        sameSite: "strict",
+        secure: true,
+    });
 }
 
+// Update the session expiration time
 export async function sessionUpdate(request: NextRequest) {
     const session = request.cookies.get("session")?.value;
     if (!session) return;
 
-    // Refresh the session so it doesn't expire
     const parsed = await decrypt(session);
     parsed.expires = new Date(Date.now() + 1000 * 60 * 30); // 30 minutes
 
@@ -53,25 +58,22 @@ export async function sessionUpdate(request: NextRequest) {
     res.cookies.set({
         name: "session",
         value: await encrypt(parsed),
-        httpOnly: true,
         expires: parsed.expires,
+        httpOnly: true,
+        sameSite: "strict",
+        secure: true,
     });
     
     return res;
 }
 
+// Get the session if it exists
 export async function sessionGet() {
     const session = cookies().get("session")?.value;
-
-    if (session) {
-        return await decrypt(session)
-    } else {
-        return null;
-    }
+    return session ? await decrypt(session) : null;
 }
 
+// Destroy the session
 export async function sessionDestroy() {
-    // Destroy the session
     cookies().set("session", "", { expires: new Date(0) });
-    // console.log("Session destroyed");
 }

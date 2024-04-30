@@ -1,5 +1,6 @@
 'use client'
 
+import Loader from "@components/loader";
 import Header from "@components/header";
 import Button from "@components/button";
 import Input from "@components/input";
@@ -20,7 +21,7 @@ export default function Authentification() {
     const emailLink = useSearchParams().get('email') ?? '';
     const passwordLink = useSearchParams().get('password') ?? '';
 
-    // Check if user is already logged in
+    // Checks if user is already logged in
     async function checkSession() {
         const session = await sessionGet();
         if (session) router.push("/" + redirectLink);
@@ -35,6 +36,7 @@ export default function Authentification() {
 
     // Cross notification page system
     const setNotification = useContext(NotificationContext);
+    const [loader, setLoader] = useState(false);
 
     /**
      * Authenticates the user by sending a request to the server.
@@ -46,14 +48,15 @@ export default function Authentification() {
      */
     const authentification = async (signUp: boolean, event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setLoader(true);
 
-        // Send the request to the server and wait for the response
+        // Sends the request to the server and wait for the response
         const data = await FetchMethod({
             function: signUp ? 'SignUp' : 'Login',
             param: signUp ? { name, email, password } : { email, password },
         });
 
-        // Display a notification according to the response
+        // Displays a notification according to the response
         if (data.message === "New user created" || data.message === "Valid credentials") {
 
             data.message === "New user created" ?
@@ -61,7 +64,7 @@ export default function Authentification() {
                 setNotification({ text: "Valid credentials", variante: "success" });
             setTimeout(() => setNotification(null), 3000);
 
-            // Create a session and redirect to the dashboard
+            // Creates a session and redirect to the dashboard
             await sessionCreate({ user: data.content });
             router.push(redirectLink);
 
@@ -69,6 +72,8 @@ export default function Authentification() {
             setNotification({ text: "Invalid credentials", variante: "danger" });
             setTimeout(() => setNotification(null), 3000);
 
+            // Clears email and password fields
+            setLoader(false);
             setEmail('');
             setPassword('');
         }
@@ -89,14 +94,14 @@ export default function Authentification() {
                             <Input type="text" name="name" placeholder="Name" required autoFocus onChange={setName} value={name} />
                             <Input type="text" name="email" placeholder="Email" required onChange={setEmail} value={email} />
                             <Input type="passwordToggle" name="password" placeholder="Password" required onChange={setPassword} value={password} />
-                            <Button mode="submit" className="w-full">Sign Up</Button>
+                            <Button mode="submit" className="flex w-full items-center justify-center gap-2"><Loader active={loader} /><span>Sign Up</span></Button>
                         </form>
                     </TabContent>
                     <TabContent label="login">
                         <form onSubmit={(e) => authentification(false, e)} className="flex flex-col items-center justify-center gap-4">
                             <Input type="text" name="email" placeholder="Email" required autoFocus onChange={setEmail} value={email} />
                             <Input type="passwordToggle" name="password" placeholder="Password" required onChange={setPassword} value={password} />
-                            <Button mode="submit" className="w-full">Login</Button>
+                            <Button mode="submit" className="flex w-full items-center justify-center gap-2"><Loader active={loader} /><span>Login</span></Button>
                         </form>
                     </TabContent>
                 </TabContentList>
