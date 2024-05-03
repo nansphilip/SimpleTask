@@ -4,7 +4,7 @@ import Button from "@components/button";
 import Card from "@components/card";
 import SelectCircle from "@components/dashboard/select-circle";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DashboardContext } from "@app/dashboard/page";
 
 export default function ViewPanel({ className }: { className?: string }) {
@@ -18,7 +18,8 @@ export default function ViewPanel({ className }: { className?: string }) {
         taskFilterView,
         setTaskFilterView,
         viewPanelVisible,
-        setViewPanelVisible
+        setViewPanelVisible,
+        mainWidth
     } = useContext(DashboardContext);
 
     const selectFilter = (e: any) => {
@@ -37,7 +38,17 @@ export default function ViewPanel({ className }: { className?: string }) {
             .map((type) => { name === type && setTaskFilterStatus(name) });
     };
 
-    return <section id="view-panel" className={`flex items-center justify-center ${className} ${viewPanelVisible}`}>
+    useEffect(() => {
+        const closeButtonEl = document.querySelector("#view-panel > button") as HTMLElement;
+
+        // 200px is the width of the view panel
+        mobileMode ?
+            closeButtonEl.style.width = mainWidth - 200 + 'px' :
+            closeButtonEl.style.width = "";
+
+    }, [mobileMode, mainWidth]);
+
+    return <section id="view-panel" className={`flex items-center justify-center ${className}` + (viewPanelVisible ? "" : " hidden") + (mobileMode ? " w-full" : "")}>
         <Card className="flex h-full w-[200px] flex-col gap-2 overflow-y-auto">
             <nav className="flex w-full flex-col gap-1">
                 <h2 className="text-xl font-bold">View</h2>
@@ -78,8 +89,8 @@ export default function ViewPanel({ className }: { className?: string }) {
             </nav>
 
         </Card>
-        <Button className={mobileMode ? "flex h-full w-8 items-center justify-center" : ""} mode="button" variante="no-style" onClick={() => setViewPanelVisible("hidden")}>
-            <div className={mobileMode ? "h-8 w-1.5 rounded-lg bg-slate-500" : "h-8 w-1.5 rounded-lg  bg-slate-500 transition-all hover:h-12 hover:bg-slate-700"}></div>
+        <Button className={mobileMode ? `flex h-full items-center justify-start` : ""} mode="button" variante="no-style" onClick={() => setViewPanelVisible(false)}>
+            <div className={`h-8 w-1.5 rounded-lg bg-slate-500 transition-all hover:h-12 hover:bg-slate-700` + (mobileMode ? " ml-2 border-white border-2 box-content" : "")}></div>
         </Button>
     </section>
 };

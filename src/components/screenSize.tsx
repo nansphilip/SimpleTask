@@ -21,7 +21,7 @@ export default function ScreenSize() {
         };
     }, []);
 
-    return <div className="fixed bottom-1 right-1 rounded-md border bg-white px-2">
+    return <div className="fixed bottom-1 right-1 z-20 rounded-md border bg-white px-2">
         <span>{screenSize}p </span>
         <span className="sm:hidden">Mobile</span>
         <span className="max-sm:hidden md:hidden">SM</span>

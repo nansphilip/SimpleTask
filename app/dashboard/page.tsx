@@ -19,8 +19,9 @@ export default function Dashboard() {
     // [ ----- ----- ----- ----- ----- ----- ]
 
     // Stores the visibility of the edition and view panels
-    const [viewPanelVisible, setViewPanelVisible] = useState("hidden");
-    const [editionPanelVisible, setEditionPanelVisible] = useState("hidden");
+    const [viewPanelVisible, setViewPanelVisible] = useState(false);
+    const [editionPanelVisible, setEditionPanelVisible] = useState(false);
+    const [mainWidth, setMainWidth] = useState(0);
     const [mobileMode, setMobileMode] = useState(true);
 
     // Stores values to add a task
@@ -30,7 +31,7 @@ export default function Dashboard() {
     // Stores the selected task to edit
     const [selectedTask, setSelectedTask] = useState
         <{ id: number, title: string, desc: string, status: string, startDate: string, endDate: string }>
-        ({ id: 0, title: '', desc: '', status: '', startDate: '', endDate: ''});
+        ({ id: 0, title: '', desc: '', status: '', startDate: '', endDate: '' });
 
     // Stores values to edit a task
     const [editTaskId, setEditTaskId] = useState('');
@@ -43,6 +44,7 @@ export default function Dashboard() {
     // Stores the task list
     const [taskList, setTaskList] = useState<JSX.Element[]>([]);
     const [taskListFiltered, setTaskListFiltered] = useState<JSX.Element[]>([]);
+    const [loading, setLoading] = useState(true);
 
     // Stores the task list filters
     const [taskFilterTime, setTaskFilterTime] = useState('allTime');
@@ -87,7 +89,7 @@ export default function Dashboard() {
         setSelectedTask(taskData);
 
         // Displays the edition panel
-        setEditionPanelVisible("");
+        setEditionPanelVisible(true);
     }
 
     /**
@@ -192,7 +194,9 @@ export default function Dashboard() {
             // console.log('Task list:', fetchedList);
 
             // Sets the task list into the useState
-            setTaskList(fetchedList);
+            fetchedList.length ?
+                setTaskList(fetchedList) :
+                setLoading(false);
         }).catch(err => {
             console.error('Error:', err);
         });
@@ -236,7 +240,7 @@ export default function Dashboard() {
     useEffect(() => {
         // Gets the window width to set the mobile or desktop mode
         window.innerWidth < 768 ? setMobileMode(true) : setMobileMode(false);
-        window.innerWidth < 768 ? setViewPanelVisible("hidden") : setViewPanelVisible("");
+        window.innerWidth < 768 ? setViewPanelVisible(false) : setViewPanelVisible(true);
 
         // Gets main height to set the view panel height
         const mainEl = document.querySelector('main') as HTMLElement;
@@ -244,7 +248,7 @@ export default function Dashboard() {
         const editionEl = document.querySelector('#edition-panel') as HTMLElement;
         if (viewEl) viewEl.style.height = `${mainEl.offsetHeight}px`;
         if (editionEl) editionEl.style.height = `${mainEl.offsetHeight}px`;
-
+        setMainWidth(mainEl.offsetWidth);
     }, []);
 
     // Closes the view an edition panel on resize for mobile
@@ -259,11 +263,12 @@ export default function Dashboard() {
             const editionEl = document.querySelector('#edition-panel') as HTMLElement;
             if (viewEl) viewEl.style.height = `${mainEl.offsetHeight}px`;
             if (editionEl) editionEl.style.height = `${mainEl.offsetHeight}px`;
+            setMainWidth(mainEl.offsetWidth);
 
             // Closes the view and edition panel if the window is resized to mobile
-            if (window.innerWidth < 1000 && editionPanelVisible !== "hidden" && viewPanelVisible !== "hidden") {
-                setViewPanelVisible("hidden");
-                setEditionPanelVisible("hidden");
+            if (window.innerWidth < 1000 && editionPanelVisible && viewPanelVisible) {
+                setViewPanelVisible(false);
+                setEditionPanelVisible(false);
             }
         };
 
@@ -276,12 +281,12 @@ export default function Dashboard() {
 
     // Closes the edition panel if user opens the view panel
     useEffect(() => {
-        if (window.innerWidth < 1000 && editionPanelVisible === "") setViewPanelVisible("hidden");
+        if (window.innerWidth < 1000 && editionPanelVisible) setViewPanelVisible(false);
     }, [editionPanelVisible]);
 
     // Closes the view panel if user opens the edition panel
     useEffect(() => {
-        if (window.innerWidth < 1000 && viewPanelVisible === "") setEditionPanelVisible("hidden");
+        if (window.innerWidth < 1000 && viewPanelVisible) setEditionPanelVisible(false);
     }, [viewPanelVisible]);
 
 
@@ -294,9 +299,9 @@ export default function Dashboard() {
         // Functions
         addTask, updateTask, deleteTask, selectATaskForEdition,
         // Panels visibility
-        mobileMode, viewPanelVisible, setViewPanelVisible, editionPanelVisible, setEditionPanelVisible,
+        mobileMode, viewPanelVisible, setViewPanelVisible, editionPanelVisible, setEditionPanelVisible, mainWidth,
         // Task lists
-        taskList, setTaskList, taskListFiltered, setTaskListFiltered,
+        taskList, setTaskList, taskListFiltered, setTaskListFiltered, loading, setLoading,
         // Add task values
         addTaskName, setAddTaskName, addTaskStatus, setAddTaskStatus,
         // Selected task values
@@ -313,10 +318,10 @@ export default function Dashboard() {
         {mobileMode ?
 
             // Mobile mode
-            <main className={`flex flex-1 items-start overflow-hidden px-2 ` + (viewPanelVisible === "hidden" ? editionPanelVisible === "hidden" ? "justify-center" : "justify-end" : "justify-start")}>
-                <ViewPanel className={`fixed pb-4 pl-2`} />
-                <TaskPanel className={`flex-1 px-2 pb-4`} />
-                <EditionPanel className={`fixed pb-4 pr-2`} />
+            <main className={`flex flex-1 items-start overflow-hidden px-2 ` + (viewPanelVisible ? (editionPanelVisible ? "justify-center" : "justify-start") : "justify-end")}>
+                <ViewPanel className={`fixed z-10 pb-4 pl-2`} />
+                <TaskPanel className={`flex-1 px-2 pb-4 ` + (viewPanelVisible || editionPanelVisible ? "relative -z-1 blur-[1px]" : "")} />
+                <EditionPanel className={`fixed z-10 pb-4 pr-2`} />
             </main> :
 
             // Desktop mode
