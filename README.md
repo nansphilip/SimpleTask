@@ -1,4 +1,4 @@
-# My very first Next App
+# Simple Task
 
 I've created this project to learns new modern technologies like:
 
