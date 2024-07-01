@@ -33,6 +33,8 @@ export async function SignUp(userForm: { name: string, email: string, password: 
         }
     });
 
+    console.log("User created: ", createUser);
+
     return {
         message: "New user created",
         content: createUser
@@ -57,6 +59,8 @@ export async function Login(userForm: { email: string, password: string }) {
             content: null
         }
     }
+
+    console.log("User logged in: ", userDB);
 
     // Return the user information WITHOUT the password
     return {
